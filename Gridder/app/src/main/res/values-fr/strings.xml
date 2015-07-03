@@ -1,0 +1,42 @@
+<resources>
+
+    <string name="app_name">Gridder</string>
+    <string name="app_name_simple">G</string>
+    <string name="ui_profile">PROFIL</string>
+    <string name="ui_messages">MESSAGES</string>
+
+    <string name="welcome">Bonjour!</string>
+    <string name="login_new_user">Nouvel utilisateur?</string>
+    <string name="login_hint_username">Nom d\'utilisateur</string>
+    <string name="login_hint_password">Mot de passe</string>
+
+    <string name="new_user_sub_header">Nouvel utilisateur</string>
+    <string name="new_user_username">Nom d\'utilisateur :</string>
+    <string name="new_user_password">Mot de passe :</string>
+    <string name="new_user_confirm_password">Confirmer le Mot de passe :</string>
+    <string name="new_user_email">Courriel :</string>
+    <string name="new_user_birthday">Date de naissance :</string>
+    <string name="new_user_gender">Sexe :</string>
+    <string name="new_user_confirm">Confirmer</string>
+    <string name="new_user_gender_male">Homme</string>
+    <string name="new_user_gender_female">Femme</string>
+
+    <string name="profile_sub_title">Définissez vous avec des hashtags!</string>
+    <string name="profile_interest">Intérêt</string>
+    <string name="profile_hint">Aide: Vous pouvez accèder aux fonctions premium gratuitement en ajoutant #Ads</string>
+    <string name="profile_how_does_it_work">Comment cela fonctionne-t-il?</string>
+
+    <string name="title_activity_new_user">Nouvel Utilisateur</string>
+    <string name="title_activity_profile">Profil</string>
+
+    <!-- Interest Card -->
+    <string name="interest_default_hashtag">Ajouter intérêt</string>
+    <string name="interest_edit_title">Modifier l\'intérêt</string>
+    <string name="interest_edit_hashtag_hint">Insérer le hashtag ici</string>
+    <string name="interest_edit_hashtag_title">Hashtag :</string>
+    <string name="interest_edit_image_button_text">Ouvrir image</string>
+    <string name="interest_edit_image_title">Image :</string>
+
+    <string name="grid_add_interest">Ajouter intérêt</string>
+    <string name="grid_modify_interest">Modifier intérêt</string>
+</resources>

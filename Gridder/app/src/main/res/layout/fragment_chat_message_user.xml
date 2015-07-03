@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:paddingBottom="5dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#800092d2"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:layout_alignParentEnd="true"
+        >
+
+        <TextView
+            android:id="@+id/chat_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[Message_Text]"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="#000"
+            android:gravity="end"/>
+
+        <ImageView
+            android:id="@+id/chat_joined_image"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_below="@id/chat_message"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/tv_daredevil"
+            android:layout_alignEnd="@id/chat_message"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

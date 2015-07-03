@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="15dp">
+
+    <TextView
+        android:id="@+id/chat_header_common"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In common:"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"/>
+
+    <HorizontalScrollView
+        android:id="@+id/chat_header_commonSquares_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chat_header_common"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/chat_header_commonSquares"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="0dp"
+            android:paddingBottom="5dp"
+            android:orientation="horizontal" />
+
+    </HorizontalScrollView>
+
+    <FrameLayout
+        android:background="@color/text_color"
+        android:layout_width="250dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/chat_header_commonSquares_scroll"/>
+
+</RelativeLayout>

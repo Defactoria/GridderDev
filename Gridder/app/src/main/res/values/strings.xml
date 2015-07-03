@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Gridder</string>
+    <string name="app_name_simple">G</string>
+    <string name="project_number">1031721267946</string>
+
+    <string name="ui_profile">PROFILE</string>
+    <string name="ui_messages">MESSAGES</string>
+
+    <string name="welcome">Hi!</string>
+
+    <string name="login_new_user">New user?</string>
+    <string name="login_hint_username">Username</string>
+    <string name="login_hint_password">Password</string>
+    <string name="title_activity_new_user">New User</string>
+
+    <string name="new_user_sub_header">Creating new user</string>
+    <string name="new_user_username">Username :</string>
+    <string name="new_user_password">Password :</string>
+    <string name="new_user_confirm_password">Confirm Password :</string>
+    <string name="new_user_email">Email :</string>
+    <string name="new_user_birthday">Birthday :</string>
+    <string name="new_user_gender">Gender :</string>
+    <string name="new_user_confirm">Confirm</string>
+    <string name="new_user_gender_male">Male</string>
+    <string name="new_user_gender_female">Female</string>
+    <string name="title_activity_profile">Profile</string>
+
+    <string name="profile_sub_title">Define yourself with hashtags!</string>
+    <string name="profile_interest">Interest</string>
+    <string name="profile_hint">Hint: You can access premium function for free by adding #Ads</string>
+    <string name="profile_how_does_it_work">How does it work?</string>
+
+    <!-- Interest Card -->
+    <string name="interest_default_hashtag">Add interest</string>
+    <string name="interest_edit_title">Modify interest</string>
+    <string name="interest_edit_hashtag_hint">Insert hashtag here</string>
+    <string name="interest_edit_hashtag_title">Hashtag :</string>
+    <string name="interest_edit_image_button_text">Open image</string>
+    <string name="interest_edit_image_title">Image :</string>
+
+    <string name="grid_add_interest">Add interest</string>
+    <string name="grid_modify_interest">Modify interest</string>
+</resources>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/chat_message_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFFFF"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:elevation="10dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.Holo.Button.Borderless"
+            android:id="@+id/chat_camera"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:src="@drawable/ic_action_camera"
+            android:tint="#ff41a0fa"
+            android:padding="5dp"
+            android:onClick="onCameraClicked"/>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.Holo.Button.Borderless"
+            android:id="@+id/chat_send"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_action_send"
+            android:tint="#ff41a0fa"
+            android:padding="5dp"
+            android:layout_marginRight="2dp"
+            android:onClick="onSendClicked"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:maxHeight="100dp"
+            android:padding="10dp"
+            android:id="@+id/chat_message"
+            android:layout_gravity="center"
+            android:hint="Your message"
+            android:background="#0000ff00"
+            android:textColorHint="#4e588eb0"
+            android:layout_toEndOf="@id/chat_camera"
+            android:layout_toStartOf="@id/chat_send"
+
+            />
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/chat_messages_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffdddddd"
+        android:stackFromBottom="true"
+        android:choiceMode="none"
+        android:dividerHeight="2dp"
+        android:layout_above="@id/chat_message_layout"/>
+
+    <include
+        android:id="@+id/chat_header"
+        layout="@layout/fragment_chat_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="AppTheme.Blue" parent="AppTheme">
+        <item name="colorPrimary">#FF0091EA</item>
+        <item name="android:textColor">#FF81D4FA</item>
+    </style>
+
+    <style name="AppTheme.Red" parent="AppTheme">
+        <item name="colorPrimary">#FFF44336</item>
+    </style>
+
+    <style name="InvisibleButton" parent="android:Widget.Button">
+        <item name="android:background">#00000000</item>
+    </style>
+
+    <style name="TextFromUser" parent="@android:style/TextAppearance">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="TextFromOthers" parent="@android:style/TextAppearance">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">italic|bold</item>
+    </style>
+
+    <style name="HeaderText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="SubHeaderText" parent="@android:style/TextAppearance">
+        <item name="android:textSize">35sp</item>
+        <item name="android:textStyle">italic|bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+</resources>

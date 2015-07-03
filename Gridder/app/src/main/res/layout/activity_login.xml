@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="leclerc.zapper.LoginActivity">
+
+    <!--<LinearLayout
+        android:background="@color/background_material_light"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/frmHeader"
+            android:transitionName="header"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/activity_header_height"
+            android:background="@android:drawable/dark_header"
+            android:elevation="@dimen/activity_header_elevation"
+            android:translationZ="@dimen/activity_header_translationZ">
+
+            <TextView
+                android:gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/app_name"
+                android:textColor="#FFFFFF"
+                style="@style/HeaderText"/>
+
+        </FrameLayout>
+
+    </LinearLayout>-->
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/welcome"
+            android:textSize="70sp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_horizontal|bottom"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:background="@android:drawable/ic_menu_myplaces"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                tools:ignore="ContentDescription"/>
+
+            <EditText
+                android:id="@+id/txtUsername"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="@string/login_hint_username"
+                android:textColorHint="#2F000000"
+                android:inputType="textNoSuggestions"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:background="@android:drawable/ic_lock_lock"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                tools:ignore="ContentDescription"/>
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:inputType="textPassword"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="@string/login_hint_password"
+                android:textColorHint="#2F000000"
+                />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnConnect"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:background="@android:drawable/ic_menu_send"
+            style="?android:borderlessButtonStyle"
+            tools:ignore="ContentDescription"/>
+
+        <TextView
+            android:id="@+id/txtNewUser"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_new_user"
+            android:textSize="18sp"
+            android:padding="20dp"
+            android:clickable="true"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

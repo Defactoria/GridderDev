@@ -1,0 +1,153 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="leclerc.zapper.ProfileActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <FrameLayout
+            android:id="@+id/frmHeader"
+            android:transitionName="header"
+            android:background="@android:drawable/dark_header"
+            android:layout_width="fill_parent">
+
+            <TextView
+                android:id="@+id/btnZap"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textColor="#FFFFFF"
+                android:text="@string/app_name_simple"
+                style="@style/HeaderText"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"/>
+
+            <GridLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:id="@+id/btnProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="@string/ui_profile"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="start"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"/>
+
+                <TextView
+                    android:id="@+id/btnMessages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:textColor="#FFFFFF"
+                    android:text="@string/ui_messages"
+                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"/>
+
+            </GridLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hi! USERNAME."
+                    style="@style/SubHeaderText"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/profile_sub_title"/>
+
+            <LinearLayout
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:gravity="center_vertical|start"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:paddingStart="35dp"
+                        android:hint="@string/profile_interest"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical|start"
+                        android:paddingBottom="10dp"
+                        android:paddingStart="10dp"
+                        android:text="#"
+                        android:textColor="#3F000000"
+                        android:textSize="30sp"/>
+
+                </FrameLayout>
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@android:drawable/ic_input_add"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:text="@string/profile_hint"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:padding="20dp"
+            style="@android:style/TextAppearance.Small"
+            android:text="#photo, #obsessed, #city, #hkig, #alone, #handmade, #tasty, #band, #now, #opi, #movie, #regram, #kik, #justin, #park, #baby, #jeep, #textme, #niall, #her, #snowman, #on, #wife, #pitbull, #kush, #friend, #workflow, #subway, #model, #brown, #modeling, #outfit, #fish, #glitter, #handsome, #blonde, #instafollow, #watch, #colorful, #hipster, #skyline, #photoaday, #merry, #losangeles, #relax, #instacollage, #instagramhub, #child, #at, #stockholm, #cousin, #city, #drink, #harry, #moon, #sunrise, #boys"/>
+
+        <TextView
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/profile_how_does_it_work"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

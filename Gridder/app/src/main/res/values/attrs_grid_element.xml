@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="GridElement">
+        <attr name="backgroundImage" format="reference" />
+        <attr name="hashtag" format="string" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="isPremium" format="boolean" />
+    </declare-styleable>
+</resources>

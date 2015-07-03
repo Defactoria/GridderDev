@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/card_edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/preview_card_edit_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop"
+            android:background="#000"
+            android:layout_centerInParent="true" />
+
+        <ImageButton
+            android:id="@+id/preview_card_edit_changeImageButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_action_picture"
+            android:background="@android:color/transparent"
+            android:layout_margin="10dp"/>
+
+        <ImageButton
+            android:id="@+id/preview_card_edit_editColors"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_action_edit"
+            android:background="@android:color/transparent"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/preview_card_edit_interest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text=""
+            style="@android:style/TextAppearance.Large"
+            android:textColor="#FFF"
+            android:textColorHint="#44FFFFFF"
+            android:hint="Interest Name"
+            android:maxLength="16"
+            android:shadowColor="#000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="3"
+            android:cursorVisible="false"
+            android:inputType="textNoSuggestions"
+            android:background="@android:color/transparent"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/card_edit_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:alpha="0.0"
+        android:visibility="gone"
+        />
+
+    <FrameLayout
+        android:id="@+id/card_edit_picture_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:alpha="0.0"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

@@ -472,6 +472,8 @@ public abstract class Animations {
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(target, "scaleY", 1.0f, 1.0f);
 
         set.playTogether(alpha, scaleX, scaleY);
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        set.setDuration(250);
 
         set.addListener(new Animator.AnimatorListener() {
             @Override
@@ -506,6 +508,8 @@ public abstract class Animations {
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(target, "scaleY", 1.0f, 1.0f);
 
         set.playTogether(alpha, scaleX, scaleY);
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        set.setDuration(250);
 
         set.addListener(new Animator.AnimatorListener() {
             @Override

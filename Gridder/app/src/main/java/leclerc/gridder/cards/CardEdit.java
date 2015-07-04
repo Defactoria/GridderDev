@@ -133,20 +133,7 @@ public class CardEdit extends FrameLayout implements UpdateCard {
         viewEditCard.setVisibility(View.GONE);
         viewGrids.setVisibility(View.VISIBLE);
 
-        boolean isSame = gridAdapter != null && gridAdapter.getCount() == grids.length;
-
-        if(isSame) {
-            for(int i = 0; i < gridAdapter.getCount(); i++) {
-                if(!gridAdapter.getItem(i).equals(grids[i])) {
-                    isSame = false;
-                    break;
-                }
-            }
-        }
-
-        if(!isSame)
-            gridAdapter = new GridAdapter(getContext(), grids);
-
+        gridAdapter = new GridAdapter(getContext(), grids);
         GridView grid = ((GridView)viewGrids.findViewById(R.id.card_grids_grid));
         grid.setAdapter(gridAdapter);
     }

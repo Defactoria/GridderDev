@@ -40,6 +40,7 @@ public class CardFront extends RelativeLayout implements UpdateCard {
         super(context);
 
         TEXT_COLOR_ADD = context.getResources().getColor(R.color.text_color);
+        setDrawingCacheEnabled(true);
     }
 
     public Interest getInterest() {

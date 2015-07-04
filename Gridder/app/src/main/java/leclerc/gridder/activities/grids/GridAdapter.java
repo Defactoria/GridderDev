@@ -1,6 +1,10 @@
 package leclerc.gridder.activities.grids;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +23,13 @@ import leclerc.gridder.R;
  * Created by Antoine on 2015-07-03.
  */
 public class GridAdapter extends ArrayAdapter<Grid> {
-    private View rootView;
-    private Map<Integer, Grid> dictionary = new HashMap<>();
+    private Map<Integer, GridElement> elements = new HashMap<>();
 
     public GridAdapter(Context context, Grid[] objects) {
         super(context, 0, objects);
 
-        rootView = LayoutInflater.from(context).inflate(R.layout.grids_element, null, false);
-
         for(int i = 0; i < objects.length; i++) {
-            dictionary.put(i, objects[i]);
+            elements.put(i, new GridElement(context, ((GridsActivity)context).getGridPreview()));
         }
     }
 
@@ -39,24 +40,37 @@ public class GridAdapter extends ArrayAdapter<Grid> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        RelativeLayout v = elements.get(position);
 
-        View v;
-
-        if(convertView == null) {
-            v = rootView;
-        }
-        else {
-            v = convertView;
-        }
-
-
-
-        int width = ((GridView)parent).getColumnWidth();
-        v.setLayoutParams(new ViewGroup.LayoutParams(width, width));
-        ((TextView)v.findViewById(R.id.grids_element_text)).setText(getItem(position).getName());
-        // Set Image HERE (R.id.grids_element_grid)
-        FrameLayout frameLayout = (FrameLayout)v.findViewById(R.id.grids_element_grid);
+        elements.get(position).setData(getItem(position).getName(), ((GridView)parent).getColumnWidth());
 
         return v;
+    }
+}
+
+class GridElement extends RelativeLayout {
+    private TextView txtGridName;
+    private FrameLayout frmGridImage;
+    private Bitmap gridPreview;
+
+    public GridElement(Context context, Bitmap preview) {
+        super(context);
+
+        LayoutInflater.from(context).inflate(R.layout.grids_element, this, true);
+        gridPreview = preview;
+
+        createView();
+    }
+
+    public void createView() {
+        txtGridName = (TextView)findViewById(R.id.grids_element_text);
+        frmGridImage = (FrameLayout)findViewById(R.id.grids_element_grid);
+    }
+
+    public void setData(String text, int width) {
+        txtGridName.setText(text);
+
+        frmGridImage.setLayoutParams(new RelativeLayout.LayoutParams(width, width));
+        frmGridImage.setBackground(new BitmapDrawable(getContext().getResources(), gridPreview));
     }
 }

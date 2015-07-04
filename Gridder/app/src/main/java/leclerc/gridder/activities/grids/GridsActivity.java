@@ -3,6 +3,7 @@ package leclerc.gridder.activities.grids;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -268,7 +269,7 @@ public class GridsActivity extends AppCompatActivity {
             if(CurrentEditCard != null && CurrentEditCard.getCurrentState() != null)
                 CurrentEditCard.getCurrentState().cancel();
         }
-        else {
+        else if(User.getInstance().getCurrentGrid() != null) {
             Interest[] interests = User.getInstance().getCurrentGrid().getElements();
 
             for(Interest i : interests) {
@@ -350,5 +351,14 @@ public class GridsActivity extends AppCompatActivity {
         };
 
         g.setOnTouchListener(swipeListener);*/
+    }
+
+    public Bitmap getGridPreview() {
+
+        View v = findViewById(R.id.grids_grid_parent);
+        v.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+        v.setDrawingCacheEnabled(true);
+
+        return v.getDrawingCache();
     }
 }

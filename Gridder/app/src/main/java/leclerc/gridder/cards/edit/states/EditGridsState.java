@@ -11,29 +11,29 @@ import leclerc.gridder.data.User;
 import leclerc.gridder.tools.Animations;
 
 /**
- * Created by Antoine on 2015-05-17.
+ * Created by Lorraine on 2015-07-03.
  */
-public class EditClosedState extends EditStateContext {
-
-    public EditClosedState(CardEdit parent) {
+public class EditGridsState extends EditStateContext {
+    public EditGridsState(CardEdit parent) {
         super(parent);
     }
 
     @Override
     public void validate() {
-        // NOTHING TO DO HERE
+        extra();
     }
 
     @Override
     public void cancel() {
-        // NOTHING TO DO HERE
+        extra();
     }
 
     @Override
     public void extra() {
-        getParent().init(User.getInstance().getGrids());
-        AnimatorSet goToGrids = Animations.getGoToGridsAnimation(Animations.CARD_EDIT);
-        goToGrids.addListener(new Animator.AnimatorListener() {
+        // RETURN TO CURRENT GRID
+
+        AnimatorSet goToCurrent = Animations.getGoToCurrentGridAnimation(Animations.CARD_EDIT);
+        goToCurrent.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -41,7 +41,7 @@ public class EditClosedState extends EditStateContext {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                getParent().setState(new EditGridsState(getParent()));
+                getParent().setState(new EditClosedState(getParent()));
             }
 
             @Override
@@ -55,16 +55,13 @@ public class EditClosedState extends EditStateContext {
             }
         });
 
-        goToGrids.start();
+        goToCurrent.start();
     }
 
     @Override
     public void show(GridsActivity gridsActivity) {
-        gridsActivity.setArrowsVisibility(View.VISIBLE);
-        gridsActivity.setFooterUsesTick(false);
-        if(User.getInstance().getCurrentGrid() == null)
-            gridsActivity.setHeaderInfos("Loading...", true, R.drawable.ic_action_tiles_large, false);
-        else
-            gridsActivity.setHeaderInfos(User.getInstance().getCurrentGrid().getName(), true, R.drawable.ic_action_tiles_large, false);
+        gridsActivity.setArrowsVisibility(View.GONE);
+        gridsActivity.setFooterUsesTick(true);
+        gridsActivity.setHeaderInfos("YOUR GRIDS", true, R.drawable.ic_action_arrow_left, false);
     }
 }

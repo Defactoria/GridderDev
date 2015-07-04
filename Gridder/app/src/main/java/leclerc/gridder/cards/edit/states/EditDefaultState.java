@@ -2,7 +2,6 @@ package leclerc.gridder.cards.edit.states;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.view.View;
 
 import leclerc.gridder.R;
@@ -12,7 +11,7 @@ import leclerc.gridder.cards.InterestCard;
 import leclerc.gridder.data.GridsLoader;
 import leclerc.gridder.data.Interest;
 import leclerc.gridder.tools.Animations;
-import leclerc.zapper.User;
+import leclerc.gridder.data.User;
 
 /**
  * Created by Antoine on 2015-05-17.

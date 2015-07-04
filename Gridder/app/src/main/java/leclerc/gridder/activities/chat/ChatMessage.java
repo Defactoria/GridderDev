@@ -2,22 +2,13 @@ package leclerc.gridder.activities.chat;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.zip.Inflater;
-
 import leclerc.gridder.R;
-import leclerc.zapper.User;
+import leclerc.gridder.data.User;
 
 /**
  * Created by Antoine on 2015-04-18.

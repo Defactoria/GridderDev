@@ -2,36 +2,26 @@ package leclerc.zapper;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.NinePatch;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.NinePatchDrawable;
 import android.os.Build;
 import android.support.v7.graphics.Palette;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.lang.reflect.Field;
 
 import leclerc.gridder.R;
+import leclerc.gridder.data.User;
 
 public class GridElement extends RelativeLayout {
     private int BackgroundColor = Color.WHITE;

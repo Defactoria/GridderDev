@@ -11,14 +11,11 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import leclerc.gridder.cards.card.states.CardBackState;
 import leclerc.gridder.cards.card.states.CardFrontState;
 import leclerc.gridder.cards.card.states.CardState;
 import leclerc.gridder.cards.card.states.CardStateContext;
 import leclerc.gridder.tools.Animations;
 import leclerc.gridder.data.Interest;
-import leclerc.gridder.activities.grids.InterestGridAdapter;
-import leclerc.zapper.User;
 
 public class InterestCard extends FrameLayout {
     public static boolean IsAnimated = false;

@@ -24,8 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.gcm.GcmNetworkManager;
-import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
@@ -42,7 +40,7 @@ import leclerc.gridder.tools.MediaLoader;
 import leclerc.gridder.R;
 import leclerc.gridder.activities.chat.ChatActivity;
 import leclerc.gridder.cards.CardEdit;
-import leclerc.zapper.User;
+import leclerc.gridder.data.User;
 
 public class GridsActivity extends AppCompatActivity {
 
@@ -166,8 +164,10 @@ public class GridsActivity extends AppCompatActivity {
         headerImgLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CurrentEditCard != null)
-                    CurrentEditCard.getCurrentState().extra();
+                if (CurrentEditCard != null) {
+                    if(CurrentEditCard.getCurrentState() != null)
+                        CurrentEditCard.getCurrentState().extra();
+                }
             }
         });
     }
@@ -226,6 +226,7 @@ public class GridsActivity extends AppCompatActivity {
 
         Animations.setCardEdit(cardEdit);
         CurrentEditCard = cardEdit;
+        CurrentEditCard.setState(new EditClosedState(CurrentEditCard));
         // End init edit layout
 
         FrameLayout frame = (FrameLayout)findViewById(R.id.grids_frameGrid);
@@ -253,6 +254,7 @@ public class GridsActivity extends AppCompatActivity {
         headerImgLeft.setVisibility(usesLeftImg ? View.VISIBLE : View.GONE);
         if(usesLeftImg) {
             headerImgLeft.setImageDrawable(getResources().getDrawable(resLeftImg));
+            headerImgLeft.setColorFilter(Color.parseColor("#FF81D4FA"));
         }
         else
             headerImgLeft.setImageBitmap(null);

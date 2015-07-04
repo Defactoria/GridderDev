@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/#Zapper.iml" filepath="$PROJECT_DIR$/#Zapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Gridder.iml" filepath="$PROJECT_DIR$/Gridder.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
-

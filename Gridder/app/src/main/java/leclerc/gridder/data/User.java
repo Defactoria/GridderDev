@@ -1,6 +1,4 @@
-package leclerc.zapper;
-
-import android.content.Context;
+package leclerc.gridder.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +94,8 @@ public class User {
     }
 
     public Grid getCurrentGrid() {
+        if(grids.size() == 0)
+            return null;
         return grids.get(gridIndex);
     }
 
@@ -104,6 +104,12 @@ public class User {
             return null;
 
         return grids.get(index);
+    }
+
+    public Grid[] getGrids() {
+        Grid[] g = new Grid[getGridsCount()];
+        grids.toArray(g);
+        return g;
     }
 
     public final int getGridsCount() {

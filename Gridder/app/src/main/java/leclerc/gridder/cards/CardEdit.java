@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import leclerc.gridder.activities.grids.Grid;
+import leclerc.gridder.activities.grids.GridAdapter;
 import leclerc.gridder.cards.edit.states.EditClosedState;
 import leclerc.gridder.cards.edit.states.EditOptionsState;
 import leclerc.gridder.cards.edit.states.EditPictureState;
@@ -56,6 +58,9 @@ public class CardEdit extends FrameLayout implements UpdateCard {
     private FrameLayout mOptionsView;
     private FrameLayout mPictureView;
     private RelativeLayout mLayout;
+
+    private View viewEditCard;
+    private View viewGrids;
 
     public CardEdit(Context context) {
         super(context);
@@ -109,6 +114,9 @@ public class CardEdit extends FrameLayout implements UpdateCard {
     }
 
     public void init(Interest interestData) {
+        viewEditCard.setVisibility(View.VISIBLE);
+        viewGrids.setVisibility(View.GONE);
+
         mInterestData = interestData;
 
         tmpState = getInterest().getState();
@@ -118,6 +126,29 @@ public class CardEdit extends FrameLayout implements UpdateCard {
             tmpState = Interest.InterestState.Color;
 
         update();
+    }
+
+    private GridAdapter gridAdapter;
+    public void init(Grid[] grids) {
+        viewEditCard.setVisibility(View.GONE);
+        viewGrids.setVisibility(View.VISIBLE);
+
+        boolean isSame = gridAdapter != null && gridAdapter.getCount() == grids.length;
+
+        if(isSame) {
+            for(int i = 0; i < gridAdapter.getCount(); i++) {
+                if(!gridAdapter.getItem(i).equals(grids[i])) {
+                    isSame = false;
+                    break;
+                }
+            }
+        }
+
+        if(!isSame)
+            gridAdapter = new GridAdapter(getContext(), grids);
+
+        GridView grid = ((GridView)viewGrids.findViewById(R.id.card_grids_grid));
+        grid.setAdapter(gridAdapter);
     }
 
     public void setDialogImage(Bitmap bmp) {
@@ -130,6 +161,9 @@ public class CardEdit extends FrameLayout implements UpdateCard {
 
     public void createView(LayoutInflater inflater) {
         final View v = inflater.inflate(R.layout.preview_card_edit, this, true);
+
+        viewEditCard = v.findViewById(R.id.card_edit_view);
+        viewGrids = v.findViewById(R.id.card_edit_grids_view);
 
         btnChangeImage = (ImageButton)v.findViewById(R.id.preview_card_edit_changeImageButton);
         btnChangeColors = (ImageButton)v.findViewById(R.id.preview_card_edit_editColors);

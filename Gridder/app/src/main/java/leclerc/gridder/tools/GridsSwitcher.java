@@ -1,7 +1,7 @@
 package leclerc.gridder.tools;
 
 import leclerc.gridder.activities.grids.Grid;
-import leclerc.zapper.User;
+import leclerc.gridder.data.User;
 
 /**
  * Created by Antoine on 2015-05-01.

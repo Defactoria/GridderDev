@@ -6,7 +6,7 @@ import android.animation.AnimatorSet;
 import leclerc.gridder.cards.InterestCard;
 import leclerc.gridder.data.Interest;
 import leclerc.gridder.tools.Animations;
-import leclerc.zapper.User;
+import leclerc.gridder.data.User;
 
 /**
  * Created by Antoine on 2015-05-24.

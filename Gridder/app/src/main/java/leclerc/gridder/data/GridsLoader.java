@@ -4,13 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,12 +17,9 @@ import java.util.Map;
 
 import leclerc.gridder.R;
 import leclerc.gridder.activities.chat.ChatActivity;
-import leclerc.gridder.activities.chat.ChatHeader;
 import leclerc.gridder.activities.grids.Grid;
 import leclerc.gridder.activities.grids.GridsActivity;
-import leclerc.gridder.activities.grids.InterestGridAdapter;
 import leclerc.gridder.cards.InterestCard;
-import leclerc.zapper.User;
 
 /**
  * Created by Antoine on 2015-05-01.
@@ -103,7 +97,7 @@ public class GridsLoader {
                 // ==========================================
                 //  GET GRIDS
                 // ==========================================
-                Cursor c = database.Database.query(VIEW_GRIDS, GRIDS_COLUMNS, "Id=" + User.getInstance().getId(), null, null, null, null);
+                Cursor c = database.Database.query(VIEW_GRIDS, GRIDS_COLUMNS, "Id=?", new String[] { String.valueOf(User.getInstance().getId()) }, null, null, null);
                 c.moveToFirst();
 
                 // Init array
@@ -236,14 +230,18 @@ public class GridsLoader {
 
                 @Override
                 protected void onPostExecute(Void aVoid) {
-                    User.getInstance().getCurrentGrid().init();
-                    if(grid != null) {
-                        grid.setAdapter(User.getInstance().getCurrentGrid().getAdapter());
+                    Grid g = User.getInstance().getCurrentGrid();
+                    if(g != null) {
+                        g.init();
+
+                        if (grid != null) {
+                            grid.setAdapter(g.getAdapter());
+                        }
                     }
 
                     GridsActivity.PROGRESS_BAR.stop();
                 }
-            }.execute(User.getInstance().getCurrentGrid());
+            }.execute(User.getInstance().getGrids());
         }
     }
 

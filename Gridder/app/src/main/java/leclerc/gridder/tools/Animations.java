@@ -17,19 +17,18 @@ import leclerc.gridder.R;
 import leclerc.gridder.activities.grids.InterestGridAdapter;
 import leclerc.gridder.cards.CardEdit;
 import leclerc.gridder.cards.InterestCard;
-import leclerc.gridder.cards.card.states.CardBackState;
 import leclerc.gridder.cards.card.states.CardFrontState;
 import leclerc.gridder.cards.edit.states.EditClosedState;
 import leclerc.gridder.cards.edit.states.EditDefaultState;
 import leclerc.gridder.data.Interest;
-import leclerc.zapper.User;
+import leclerc.gridder.data.User;
 
 /**
  * Created by Antoine on 2015-04-14.
  */
 public abstract class Animations {
 
-    private static CardEdit CARD_EDIT;
+    public static CardEdit CARD_EDIT;
     public static void setCardEdit(CardEdit cardEditView) {
         CARD_EDIT = cardEditView;
         bFirstExpansion = true;
@@ -440,6 +439,74 @@ public abstract class Animations {
         AnimatorSet set = new AnimatorSet();
 
         set.play(ObjectAnimator.ofFloat(target, "alpha", 0.0f));
+        set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                target.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        return set;
+    }
+
+    public static AnimatorSet getGoToGridsAnimation(final View target) {
+        AnimatorSet set = new AnimatorSet();
+
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(target, "alpha", 0.0f, 1.0f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(target, "scaleX", 1.0f, 1.0f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(target, "scaleY", 1.0f, 1.0f);
+
+        set.playTogether(alpha, scaleX, scaleY);
+
+        set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                target.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        return set;
+    }
+
+    public static AnimatorSet getGoToCurrentGridAnimation(final View target) {
+        AnimatorSet set = new AnimatorSet();
+
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(target, "alpha", 1.0f, 0.0f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(target, "scaleX", 1.0f, 1.0f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(target, "scaleY", 1.0f, 1.0f);
+
+        set.playTogether(alpha, scaleX, scaleY);
+
         set.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {

@@ -29,6 +29,7 @@ public class Interest {
     }
 
     public enum InterestState {
+        NONE,
         Add,
         Custom,
         Color
@@ -111,7 +112,7 @@ public class Interest {
     public Interest(long id, String name) {
         mId = id;
         setName(name);
-        changeState(InterestState.Color);
+        changeState(InterestState.NONE);
     }
 
     // Init the interest (usually used when loading from database)
@@ -135,15 +136,17 @@ public class Interest {
 
     // Load custom image from initial source
     private void loadCustomImage() {
-        if(mCustomImageSrc == null)
+        if(mCustomImageSrc == null) {
+            setState(InterestState.Color);
             return;
+        }
 
         try {
             InterestImage.getImage(this, mCustomImageSrc, CARD_RES_WIDTH, CARD_RES_HEIGHT);
         }
         catch (FileNotFoundException e) {
             mCustomImageSrc = null;
-            changeState(InterestState.Color);
+            setState(InterestState.Color);
         }
     }
 

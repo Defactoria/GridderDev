@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/grids_root"
+    android:background="#FFF"
     tools:context="leclerc.gridder.TestGridsViewActivity">
 
     <FrameLayout
@@ -48,35 +49,7 @@
 
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/grids_grid_parent"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/grids_header"
-        android:background="#FFF">
 
-        <ImageView
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/progressBar"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_action_progress_infinite"/>
-
-        <GridView
-            android:id="@+id/grids_gridInterests"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="3"
-            android:stretchMode="columnWidth"
-            android:horizontalSpacing="3dp"
-            android:verticalSpacing="3dp"
-            android:paddingStart="1dp"
-            android:paddingEnd="1dp"/>
-
-
-
-    </FrameLayout>
 
     <RelativeLayout
         android:id="@+id/grids_footer"
@@ -133,6 +106,45 @@
             style="@android:style/Widget.Holo.Button.Borderless"/>
 
     </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/grids_grid_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/grids_header"
+        android:layout_above="@id/grids_footer"
+        >
+
+        <ImageView
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_action_progress_infinite"/>
+
+        <FrameLayout
+            android:id="@+id/grids_previews_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
+
+        <GridView
+            android:id="@+id/grids_gridInterests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="3dp"
+            android:verticalSpacing="3dp"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:background="#FFF"/>
+
+
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/grids_swap_frame"

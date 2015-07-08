@@ -181,8 +181,9 @@ public class GridsLoader {
                 //grid.setAdapter(grids[0].getAdapter());
                 //grid.deferNotifyDataSetChanged();
 
-                TextView textView = (TextView)initialView.findViewById(R.id.grids_txtGridName);
-                textView.setText(grids[0].getName());
+                //TODO: CHECK
+                /*TextView textView = (TextView)initialView.findViewById(R.id.grids_txtGridName);
+                textView.setText(grids[0].getName());*/
             }
 
             for(Grid g : grids) {
@@ -236,6 +237,12 @@ public class GridsLoader {
 
                         if (grid != null) {
                             grid.setAdapter(g.getAdapter());
+                        }
+                    }
+
+                    for(Grid uGrid : User.getInstance().getGrids()) {
+                        if(!uGrid.equals(g)) {
+                            ((GridsActivity)currentContext).addPreview(uGrid);
                         }
                     }
 

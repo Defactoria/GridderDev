@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -31,7 +32,6 @@ import leclerc.gridder.cards.edit.states.EditState;
 import leclerc.gridder.cards.edit.states.EditStateContext;
 import leclerc.gridder.tools.AdapterFactory;
 import leclerc.gridder.tools.Animations;
-import leclerc.gridder.activities.grids.GridsActivity;
 import leclerc.gridder.data.Interest;
 import leclerc.gridder.R;
 
@@ -128,14 +128,29 @@ public class CardEdit extends FrameLayout implements UpdateCard {
         update();
     }
 
-    private GridAdapter gridAdapter;
     public void init(Grid[] grids) {
         viewEditCard.setVisibility(View.GONE);
         viewGrids.setVisibility(View.VISIBLE);
 
-        gridAdapter = new GridAdapter(getContext(), grids);
+        GridAdapter gridAdapter = new GridAdapter(getContext(), grids);
         GridView grid = ((GridView)viewGrids.findViewById(R.id.card_grids_grid));
         grid.setAdapter(gridAdapter);
+
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GridAdapter.GridElement el = (GridAdapter.GridElement)view;
+                GridAdapter adapter = (GridAdapter)parent.getAdapter();
+
+                for(int i = 0; i < adapter.getCount(); i++) {
+                    if(!el.equals(adapter.getElement(i))) {
+                        el.setSelected(false);
+                    }
+                }
+
+                el.setSelected(true);
+            }
+        });
     }
 
     public void setDialogImage(Bitmap bmp) {

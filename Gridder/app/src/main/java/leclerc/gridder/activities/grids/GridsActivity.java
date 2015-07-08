@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +24,7 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -62,6 +68,8 @@ public class GridsActivity extends AppCompatActivity {
 
     private boolean isEditCardOpen;
 
+    private FrameLayout PreviewContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -80,6 +88,8 @@ public class GridsActivity extends AppCompatActivity {
         PROGRESS_BAR.stop();
 
         GridsRoot = findViewById(R.id.grids_root);
+
+        PreviewContainer = (FrameLayout)findViewById(R.id.grids_previews_container);
 
         GridsLoader.init(this);
         initGridGestures();
@@ -117,6 +127,23 @@ public class GridsActivity extends AppCompatActivity {
         };
 
         new Thread(runnable).start();
+    }
+
+    private GridView getPreviewGridView() {
+        GridView grid = new GridView(this);
+        grid.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        grid.setNumColumns(3);
+        grid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+
+        int spacing = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
+        grid.setHorizontalSpacing(spacing);
+        grid.setVerticalSpacing(spacing);
+
+        int padding = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+        grid.setPadding(padding, 0, padding, 0);
+        grid.setVisibility(View.VISIBLE);
+
+        return grid;
     }
 
     private void initHeader() {
@@ -265,8 +292,8 @@ public class GridsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(isEditCardOpen) {
-            if(CurrentEditCard != null && CurrentEditCard.getCurrentState() != null)
+        if (isEditCardOpen) {
+            if (CurrentEditCard != null && CurrentEditCard.getCurrentState() != null)
                 CurrentEditCard.getCurrentState().cancel();
         }
         else if(User.getInstance().getCurrentGrid() != null) {
@@ -301,6 +328,7 @@ public class GridsActivity extends AppCompatActivity {
                     if(path != null) {
                         Interest interest = CurrentEditCard.getInterest();
                         Interest.InterestImage.getImage(interest, path, Interest.CARD_RES_WIDTH, Interest.CARD_RES_HEIGHT);
+                        System.out.println(path);
                     }
                 }
                 catch (FileNotFoundException e) {
@@ -353,12 +381,51 @@ public class GridsActivity extends AppCompatActivity {
         g.setOnTouchListener(swipeListener);*/
     }
 
-    public Bitmap getGridPreview() {
-
-        View v = findViewById(R.id.grids_grid_parent);
-        v.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+    public void addPreview(Grid g) {
+        GridView v = getPreviewGridView();
+        v.setAdapter(g.getAdapter());
         v.setDrawingCacheEnabled(true);
+        g.setPreviewView(v);
 
-        return v.getDrawingCache();
+        try {
+            PreviewContainer.addView(v);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    *   Taken from
+    *   http://stackoverflow.com/questions/5536066/convert-view-to-bitmap-on-android
+    */
+    private Bitmap getPreview(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
+        //Bind a canvas to it
+        Canvas canvas = new Canvas(returnedBitmap);
+        //Get the view's background
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable!=null)
+            //has background drawable, then draw it on the canvas
+            bgDrawable.draw(canvas);
+        else
+            //does not have background drawable, then draw white background on the canvas
+            canvas.drawColor(Color.WHITE);
+        // draw the view on the canvas
+        view.draw(canvas);
+        //return the bitmap
+        return returnedBitmap;
+    }
+
+    public void removePreview(Grid g) {
+        if(g.getPreviewView() != null)
+            PreviewContainer.removeView(g.getPreviewView());
+    }
+
+    public Bitmap loadPreview(Grid g) {
+        if(g.getPreviewView() != null)
+            return getPreview(g.getPreviewView());
+        else
+            return getPreview(findViewById(R.id.grids_grid_parent));
     }
 }

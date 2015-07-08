@@ -13,7 +13,7 @@
         android:layout_marginBottom="5dp"
         android:layout_alignParentBottom="true"/>
 
-    <FrameLayout
+    <ImageView
         android:id="@+id/grids_element_grid"
         android:layout_width="120dp"
         android:layout_height="fill_parent"
@@ -21,6 +21,38 @@
         android:layout_margin="5dp"
         android:layout_alignParentTop="true"
         android:layout_above="@id/grids_element_text"
-        android:background="#000" />
+        android:scaleType="center"
+        android:background="#FFF"/>
+
+    <RelativeLayout
+        android:id="@+id/grids_element_border"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone">
+        <FrameLayout
+            android:background="@color/text_color"
+            android:layout_width="3dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentStart="true"/>
+
+        <FrameLayout
+            android:background="@color/text_color"
+            android:layout_width="3dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentEnd="true"/>
+
+        <FrameLayout
+            android:background="@color/text_color"
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:layout_alignParentTop="true"/>
+
+        <FrameLayout
+            android:background="@color/text_color"
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

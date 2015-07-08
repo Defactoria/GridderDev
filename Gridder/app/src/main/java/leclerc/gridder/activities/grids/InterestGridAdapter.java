@@ -13,11 +13,12 @@ import java.util.Map;
 
 import leclerc.gridder.data.Interest;
 import leclerc.gridder.cards.InterestCard;
+import leclerc.gridder.tools.ILoading;
 
 /**
  * Created by Antoine on 2015-04-07.
  */
-public class InterestGridAdapter extends ArrayAdapter<Interest> {
+public class InterestGridAdapter extends ArrayAdapter<Interest> implements ILoading {
     private static final String TAG = InterestGridAdapter.class.getSimpleName();
     private Map<Integer, Interest> dictionary = new HashMap<>();
 
@@ -59,7 +60,7 @@ public class InterestGridAdapter extends ArrayAdapter<Interest> {
                 int width = ((GridView) parent).getColumnWidth();
                 card.setDimension(width, width);
                 card.updateData(getItem(position));
-                card.init();
+                card.init(this);
             }
             else {
                 card.updateData(getItem(position));
@@ -73,5 +74,32 @@ public class InterestGridAdapter extends ArrayAdapter<Interest> {
         }
 
         return card;
+    }
+
+    private ILoading loadingParent;
+    public void setLoadingParent(ILoading parent) {
+        loadingParent = parent;
+        currentCustomCardLoaded = 0;
+    }
+
+    private int currentCustomCardLoaded;
+    @Override
+    public void onLoaded() {
+        ++currentCustomCardLoaded;
+
+        if(currentCustomCardLoaded >= getCustomCount() && loadingParent != null) {
+            loadingParent.onLoaded();
+        }
+    }
+
+    private int getCustomCount() {
+        int c = 0;
+
+        for(int i = 0; i < getCount(); i++) {
+            if(getItem(i).getState() == Interest.InterestState.Custom)
+                ++c;
+        }
+
+        return c;
     }
 }

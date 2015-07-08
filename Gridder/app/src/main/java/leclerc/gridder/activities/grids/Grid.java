@@ -10,8 +10,9 @@ import java.util.List;
 import leclerc.gridder.R;
 import leclerc.gridder.cards.InterestCard;
 import leclerc.gridder.data.Interest;
+import leclerc.gridder.tools.ILoading;
 
-public class Grid extends View {
+public class Grid extends View implements ILoading {
     private Interest[] elements = new Interest[9];
 
     private int Id;
@@ -19,6 +20,7 @@ public class Grid extends View {
     private Bitmap GridPreview;
 
     private InterestGridAdapter mAdapter;
+    private View mPreviewView;
 
     public Grid(Context context, int id, String name) {
         super(context);
@@ -131,6 +133,7 @@ public class Grid extends View {
 
     public void init() {
         mAdapter = new InterestGridAdapter(getContext(), elements);
+        mAdapter.setLoadingParent(this);
     }
 
     public final InterestGridAdapter getAdapter() {
@@ -158,5 +161,30 @@ public class Grid extends View {
         }
 
         return interests;
+    }
+
+    public void setPreviewView(View v) {
+        mPreviewView = v;
+    }
+
+    public View getPreviewView() {
+        return mPreviewView;
+    }
+
+    public void setPreview(Bitmap preview) {
+        GridPreview = preview;
+    }
+
+    public Bitmap getPreview() {
+        return GridPreview;
+    }
+
+    @Override
+    public void onLoaded() {
+        System.out.println(String.format("Grid \"%s\" Loaded", getName()));
+
+        // IF HERE, IT IS ON THE SCREEN
+        setPreview(((GridsActivity)getContext()).loadPreview(this));
+        ((GridsActivity)getContext()).removePreview(this);
     }
 }

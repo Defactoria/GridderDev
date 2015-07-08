@@ -16,8 +16,9 @@ import leclerc.gridder.cards.card.states.CardState;
 import leclerc.gridder.cards.card.states.CardStateContext;
 import leclerc.gridder.tools.Animations;
 import leclerc.gridder.data.Interest;
+import leclerc.gridder.tools.ILoading;
 
-public class InterestCard extends FrameLayout {
+public class InterestCard extends FrameLayout implements ILoading {
     public static boolean IsAnimated = false;
 
     private interface OnCardFlippedHandler {
@@ -165,7 +166,7 @@ public class InterestCard extends FrameLayout {
         return set;
     }
 
-    public void init() {
+    public void init(ILoading parent) {
         if(InterestData == null)
             return;
 
@@ -177,6 +178,7 @@ public class InterestCard extends FrameLayout {
         addView(Back);
 
         Front = new CardFront(getContext());
+        Front.setLoadingParent(this);
         Front.createView(inflater);
         //Front.init(InterestData);
         addView(Front);
@@ -209,6 +211,8 @@ public class InterestCard extends FrameLayout {
 
         // Needs to be after initializing Front and Back cards
         mState = new CardFrontState(this);
+
+        loadingParent = parent;
 
         updateData(InterestData);
     }
@@ -246,5 +250,14 @@ public class InterestCard extends FrameLayout {
 
         if(Back != null)
             Back.init(InterestData);
+    }
+
+    private ILoading loadingParent;
+    @Override
+    public void onLoaded() {
+        System.out.println(String.format("InterestCard \"%s\" Loaded", InterestData.getName()));
+
+        if(loadingParent != null)
+            loadingParent.onLoaded();
     }
 }

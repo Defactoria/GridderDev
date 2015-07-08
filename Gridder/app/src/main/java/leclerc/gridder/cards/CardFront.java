@@ -21,6 +21,7 @@ import java.util.Random;
 
 import leclerc.gridder.data.Interest;
 import leclerc.gridder.R;
+import leclerc.gridder.tools.ILoading;
 
 /**
  * Created by Antoine on 2015-05-10.
@@ -102,9 +103,10 @@ public class CardFront extends RelativeLayout implements UpdateCard {
         getInterest().addChangedListener(new Interest.ImageChangedListener() {
             @Override
             public void onChanged(Interest.InterestState state, Bitmap old, Bitmap newBmp) {
-                if(state != Interest.InterestState.Add) {
-                    imageView.setBackgroundColor(getInterest().getColor());
-                    imageView.setImageBitmap(getInterest().getCustomImage());
+                if (state != Interest.InterestState.Add) {
+                    updateImages(true);
+                    /*imageView.setBackgroundColor(getInterest().getColor());
+                    imageView.setImageBitmap(getInterest().getCustomImage());*/
                 }
             }
         });
@@ -113,8 +115,9 @@ public class CardFront extends RelativeLayout implements UpdateCard {
             @Override
             public void onStateChanged(Interest.InterestState state) {
                 if(state != Interest.InterestState.Add) {
-                    imageView.setBackgroundColor(getInterest().getColor());
-                    imageView.setImageBitmap(getInterest().getCustomImage());
+                    updateImages(true);
+                    /*imageView.setBackgroundColor(getInterest().getColor());
+                    imageView.setImageBitmap(getInterest().getCustomImage());*/
                 }
             }
         });
@@ -124,8 +127,9 @@ public class CardFront extends RelativeLayout implements UpdateCard {
             public void run() {
                 // Remove background color for "Add interest"
                 if (getInterest().getState() != Interest.InterestState.Add) {
-                    imageView.setBackgroundColor(getInterest().getColor());
-                    imageView.setImageBitmap(getInterest().getCustomImage());
+                    updateImages(false);
+                    /*imageView.setBackgroundColor(getInterest().getColor());
+                    imageView.setImageBitmap(getInterest().getCustomImage());*/
                 }
 
                 txtName.setText(getInterest().getHashtag());
@@ -133,6 +137,7 @@ public class CardFront extends RelativeLayout implements UpdateCard {
                 switch (getInterest().getState()) {
                     case Add:
                         imageView.setColorFilter(Color.parseColor("#FF0091EA"), PorterDuff.Mode.MULTIPLY);
+                        imageView.setBackgroundColor(Color.WHITE);
                         txtName.setTextColor(TEXT_COLOR_ADD);
                         txtName.setShadowLayer(0, 0, 0, Color.BLACK);
                         break;
@@ -146,5 +151,19 @@ public class CardFront extends RelativeLayout implements UpdateCard {
         };
 
         ((Activity) (getContext())).runOnUiThread(update);
+    }
+
+    private void updateImages(boolean usingImages) {
+        imageView.setBackgroundColor(getInterest().getColor());
+        imageView.setImageBitmap(getInterest().getCustomImage());
+        // LOADED
+
+        if(usingImages && loadingParent != null)
+            loadingParent.onLoaded();
+    }
+
+    private ILoading loadingParent;
+    public void setLoadingParent(ILoading parent) {
+        loadingParent = parent;
     }
 }

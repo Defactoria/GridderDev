@@ -104,7 +104,7 @@ public class CardFront extends RelativeLayout implements UpdateCard {
             @Override
             public void onChanged(Interest.InterestState state, Bitmap old, Bitmap newBmp) {
                 if (state != Interest.InterestState.Add) {
-                    updateImages(true);
+                    updateImages();
                     /*imageView.setBackgroundColor(getInterest().getColor());
                     imageView.setImageBitmap(getInterest().getCustomImage());*/
                 }
@@ -115,10 +115,12 @@ public class CardFront extends RelativeLayout implements UpdateCard {
             @Override
             public void onStateChanged(Interest.InterestState state) {
                 if(state != Interest.InterestState.Add) {
-                    updateImages(true);
+                    updateImages();
                     /*imageView.setBackgroundColor(getInterest().getColor());
                     imageView.setImageBitmap(getInterest().getCustomImage());*/
                 }
+
+
             }
         });
 
@@ -127,7 +129,7 @@ public class CardFront extends RelativeLayout implements UpdateCard {
             public void run() {
                 // Remove background color for "Add interest"
                 if (getInterest().getState() != Interest.InterestState.Add) {
-                    updateImages(false);
+                    updateImages();
                     /*imageView.setBackgroundColor(getInterest().getColor());
                     imageView.setImageBitmap(getInterest().getCustomImage());*/
                 }
@@ -136,10 +138,14 @@ public class CardFront extends RelativeLayout implements UpdateCard {
 
                 switch (getInterest().getState()) {
                     case Add:
-                        imageView.setColorFilter(Color.parseColor("#FF0091EA"), PorterDuff.Mode.MULTIPLY);
+                        imageView.setColorFilter(Color.parseColor("#FF81D4FA"), PorterDuff.Mode.MULTIPLY);
                         imageView.setBackgroundColor(Color.WHITE);
                         txtName.setTextColor(TEXT_COLOR_ADD);
                         txtName.setShadowLayer(0, 0, 0, Color.BLACK);
+
+                        /*if(loadingParent != null)
+                            loadingParent.onLoaded(this);*/
+
                         break;
                     default:
                         imageView.setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
@@ -153,13 +159,13 @@ public class CardFront extends RelativeLayout implements UpdateCard {
         ((Activity) (getContext())).runOnUiThread(update);
     }
 
-    private void updateImages(boolean usingImages) {
+    private void updateImages() {
         imageView.setBackgroundColor(getInterest().getColor());
         imageView.setImageBitmap(getInterest().getCustomImage());
         // LOADED
 
-        if(usingImages && loadingParent != null)
-            loadingParent.onLoaded();
+        /*if(loadingParent != null)
+            loadingParent.onLoaded(this);*/
     }
 
     private ILoading loadingParent;

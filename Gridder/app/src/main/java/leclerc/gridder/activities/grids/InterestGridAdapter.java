@@ -21,6 +21,7 @@ import leclerc.gridder.tools.ILoading;
 public class InterestGridAdapter extends ArrayAdapter<Interest> implements ILoading {
     private static final String TAG = InterestGridAdapter.class.getSimpleName();
     private Map<Integer, Interest> dictionary = new HashMap<>();
+    private Map<Integer, Boolean> hasLoaded = new HashMap<>();
 
     public InterestGridAdapter(Context context, Interest[] interests) {
         super(context, 0, new ArrayList<Interest>());
@@ -79,16 +80,28 @@ public class InterestGridAdapter extends ArrayAdapter<Interest> implements ILoad
     private ILoading loadingParent;
     public void setLoadingParent(ILoading parent) {
         loadingParent = parent;
-        currentCustomCardLoaded = 0;
     }
 
-    private int currentCustomCardLoaded;
     @Override
-    public void onLoaded() {
-        ++currentCustomCardLoaded;
+    public void onLoaded(Object caller) {
+        Interest interest = ((InterestCard)caller).getInterest();
+        int position = interest.getIndex();
 
-        if(currentCustomCardLoaded >= getCustomCount() && loadingParent != null) {
-            loadingParent.onLoaded();
+        if(hasLoaded.containsKey(position)) {
+            hasLoaded.remove(position);
+        }
+        hasLoaded.put(position, true);
+
+        boolean isCompletelyLoaded = true;
+        for(Boolean b : hasLoaded.values()) {
+            if(!b) {
+                isCompletelyLoaded = false;
+                break;
+            }
+        }
+
+        if(hasLoaded.size() == getCount() && isCompletelyLoaded && loadingParent != null) {
+            loadingParent.onLoaded(this);
         }
     }
 

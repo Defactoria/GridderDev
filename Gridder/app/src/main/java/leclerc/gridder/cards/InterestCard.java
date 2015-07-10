@@ -254,10 +254,21 @@ public class InterestCard extends FrameLayout implements ILoading {
 
     private ILoading loadingParent;
     @Override
-    public void onLoaded() {
-        System.out.println(String.format("InterestCard \"%s\" Loaded", InterestData.getName()));
+    public void onLoaded(Object caller) {
+        //System.out.println(String.format("InterestCard \"%s\" Loaded", InterestData.getName()));
 
         if(loadingParent != null)
-            loadingParent.onLoaded();
+            loadingParent.onLoaded(this);
+    }
+
+    private boolean loaded;
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+
+        if(visibility == VISIBLE && !loaded) {
+            onLoaded(this);
+            loaded = true;
+        }
     }
 }

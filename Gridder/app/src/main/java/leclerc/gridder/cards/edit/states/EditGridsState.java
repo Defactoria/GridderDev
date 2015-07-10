@@ -14,13 +14,28 @@ import leclerc.gridder.tools.Animations;
  * Created by Lorraine on 2015-07-03.
  */
 public class EditGridsState extends EditStateContext {
+    private int lastIndex = 0;
+
     public EditGridsState(CardEdit parent) {
         super(parent);
     }
 
     @Override
+    public void init() {
+        lastIndex = User.getInstance().getCurrentGridIndex();
+        getParent().selectGrid(lastIndex);
+    }
+
+    @Override
     public void validate() {
-        extra();
+        if(lastIndex != getParent().getSelectGridIndex()) {
+            // DO SOMETHING
+            if(User.getInstance().changeGrid(getParent().getSelectGridIndex()))
+                extra();
+        }
+        else {
+            extra();
+        }
     }
 
     @Override

@@ -1,5 +1,5 @@
 <resources>
-
+    <string name="project_number">1031721267946</string>
     <string name="app_name">Gridder</string>
     <string name="app_name_simple">G</string>
     <string name="ui_profile">PROFIL</string>

@@ -78,7 +78,7 @@ public class GridsLoader {
 
     private static int getGridIndexById(Grid[] grids, int id) {
         for(int i = 0; i < grids.length; i++) {
-            if(grids[i].getId() == id) {
+            if(grids[i].getGridId() == id) {
                 return i;
             }
         }
@@ -290,7 +290,7 @@ public class GridsLoader {
             // INSERT OR UPDATE CARD
             {
                 ContentValues cardValues = new ContentValues();
-                cardValues.put("GridId", User.getInstance().getCurrentGrid().getId());
+                cardValues.put("GridId", User.getInstance().getCurrentGrid().getGridId());
                 cardValues.put("HashtagId", hashtagId);
                 cardValues.put("GridIndex", interest.getIndex());
                 cardValues.put("UseDefaultImage", interest.getState() == Interest.InterestState.Custom ? 1 : 0);
@@ -316,7 +316,8 @@ public class GridsLoader {
         @Override
         protected ContentValues doInBackground(String... params) {
 
-            Cursor c = database.Database.query("User", null, "DeviceId=?", new String[] { params[0] }, null, null, null);
+            //Cursor c = database.Database.query("User", null, "DeviceId=?", new String[] { params[0] }, null, null, null);
+            Cursor c = database.Database.query("User", null, "Id=?", new String[] { String.valueOf(User.getInstance().getId()) }, null, null, null);
             c.moveToFirst();
 
             Long userId;
@@ -367,7 +368,7 @@ public class GridsLoader {
 
             String[] whereArgs = new String[] {
                     String.valueOf(User.getInstance().getId()),
-                    String.valueOf(User.getInstance().getCurrentGrid().getId()),
+                    String.valueOf(User.getInstance().getCurrentGrid().getGridId()),
                     String.valueOf(User.getInstance().getId())
             };
 
@@ -443,13 +444,14 @@ public class GridsLoader {
             };
 
             String[] whereArgs = new String[] {
-                    String.valueOf(User.getInstance().getCurrentGrid().getId()),
+                    String.valueOf(User.getInstance().getCurrentGrid().getGridId()),
                     String.valueOf(User.getInstance().getId()),
                     params[0], // Device Id of other user
                     params[1] // Id of other user's grid
             };
 
-            Cursor c = database.Database.query("view_get_commons", columns, "SearcherGridId=? AND SearcherId=? AND OtherDeviceId=? AND OtherGridId=?", whereArgs, null, null, null);
+            //Cursor c = database.Database.query("view_get_commons", columns, "SearcherGridId=? AND SearcherId=? AND OtherDeviceId=? AND OtherGridId=?", whereArgs, null, null, null);
+            Cursor c = database.Database.query("view_get_commons", columns, " OtherGridId=? AND SearcherId=? AND SearcherGridId=?", new String[] { String.valueOf(1), String.valueOf(User.getInstance().getId()), String.valueOf(User.getInstance().getCurrentGrid().getGridId()) }, null, null, null);
             c.moveToFirst();
 
             List<Long> cardIds = new ArrayList<>();

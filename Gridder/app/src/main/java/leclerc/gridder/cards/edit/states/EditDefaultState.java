@@ -1,7 +1,10 @@
 package leclerc.gridder.cards.edit.states;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.view.View;
 
 import leclerc.gridder.R;
@@ -42,7 +45,7 @@ public class EditDefaultState extends EditStateContext {
         if(getParent().getInterest().getState() != Interest.InterestState.Add)
             id = getParent().getInterest().getId();
 
-        Interest newInterest = new Interest(id, getParent().getText());
+        final Interest newInterest = new Interest(id, getParent().getText());
         newInterest.init(getParent().getInterest().getState() == Interest.InterestState.Custom,
                 getParent().getTmpCustomImage(),
                 getParent().getTmpColor());
@@ -64,7 +67,31 @@ public class EditDefaultState extends EditStateContext {
         // Update in DB
         GridsLoader.update(newInterest);
 
-        Animations.getGoToGridAnimation(getParent().getContext(), newInterest.getIndex()).start();
+        AnimatorSet anim = Animations.getGoToGridAnimation(getParent().getContext(), newInterest.getIndex());
+        anim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (newInterest.getCard() != null)
+                    newInterest.getCard().onLoaded(newInterest);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        anim.start();
     }
 
     @Override

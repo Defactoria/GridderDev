@@ -30,6 +30,7 @@ import leclerc.gridder.cards.edit.states.EditOptionsState;
 import leclerc.gridder.cards.edit.states.EditPictureState;
 import leclerc.gridder.cards.edit.states.EditState;
 import leclerc.gridder.cards.edit.states.EditStateContext;
+import leclerc.gridder.data.User;
 import leclerc.gridder.tools.AdapterFactory;
 import leclerc.gridder.tools.Animations;
 import leclerc.gridder.data.Interest;
@@ -128,29 +129,49 @@ public class CardEdit extends FrameLayout implements UpdateCard {
         update();
     }
 
+    GridView gridList;
+    GridAdapter gridAdapter;
     public void init(Grid[] grids) {
         viewEditCard.setVisibility(View.GONE);
         viewGrids.setVisibility(View.VISIBLE);
 
-        GridAdapter gridAdapter = new GridAdapter(getContext(), grids);
-        GridView grid = ((GridView)viewGrids.findViewById(R.id.card_grids_grid));
-        grid.setAdapter(gridAdapter);
+        gridAdapter = new GridAdapter(getContext(), grids);
+        gridList = ((GridView)viewGrids.findViewById(R.id.card_grids_grid));
+        gridList.setAdapter(gridAdapter);
 
-        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GridAdapter.GridElement el = (GridAdapter.GridElement)view;
-                GridAdapter adapter = (GridAdapter)parent.getAdapter();
-
-                for(int i = 0; i < adapter.getCount(); i++) {
-                    if(!el.equals(adapter.getElement(i))) {
-                        el.setSelected(false);
-                    }
-                }
-
-                el.setSelected(true);
+                selectGrid(position);
             }
         });
+    }
+
+    public final int getSelectGridIndex() {
+        return gridAdapter.getCurrentIndex();
+    }
+
+    public void selectGrid(int currentIndex) {
+        if(gridAdapter != null) {
+            GridAdapter.GridElement el = gridAdapter.getElement(currentIndex);
+
+            el.doAction();
+            /*if(!el.canSelect()) {
+                el.doAction();
+                return;
+            }
+
+            for (int i = 0; i < gridAdapter.getCount(); i++)
+                if (!gridAdapter.getElement(i).equals(el))
+                    gridAdapter.getElement(i).deselect();
+
+            el.select();*/
+        }
+    }
+
+    public void updateGridList() {
+        gridAdapter = new GridAdapter(getContext(), User.getInstance().getGrids());
+        gridList.setAdapter(gridAdapter);
     }
 
     public void setDialogImage(Bitmap bmp) {

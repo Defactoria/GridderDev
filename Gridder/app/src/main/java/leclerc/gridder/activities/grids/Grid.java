@@ -9,20 +9,22 @@ import java.util.List;
 
 import leclerc.gridder.R;
 import leclerc.gridder.cards.InterestCard;
+import leclerc.gridder.cards.edit.states.EditClosedState;
 import leclerc.gridder.data.Interest;
+import leclerc.gridder.data.User;
 import leclerc.gridder.tools.ILoading;
 
 public class Grid extends View implements ILoading {
     private Interest[] elements = new Interest[9];
 
-    private int Id;
+    private long Id;
     private String Name;
     private Bitmap GridPreview;
 
     private InterestGridAdapter mAdapter;
     private View mPreviewView;
 
-    public Grid(Context context, int id, String name) {
+    public Grid(Context context, long id, String name) {
         super(context);
 
         Id = id;
@@ -35,7 +37,7 @@ public class Grid extends View implements ILoading {
         }
     }
 
-    public final int getId() {
+    public final long getGridId() {
         return Id;
     }
 
@@ -180,11 +182,27 @@ public class Grid extends View implements ILoading {
     }
 
     @Override
-    public void onLoaded() {
-        System.out.println(String.format("Grid \"%s\" Loaded", getName()));
+    public void onLoaded(Object caller) {
 
         // IF HERE, IT IS ON THE SCREEN
-        setPreview(((GridsActivity)getContext()).loadPreview(this));
-        ((GridsActivity)getContext()).removePreview(this);
+
+        GridsActivity activity = (GridsActivity) getContext();
+
+        Bitmap bmp = activity.loadPreview(this);
+
+        if(bmp != null) {
+            setPreview(bmp);
+        }
+
+        activity.removePreview(this);
+
+        if (User.getInstance().getCurrentGrid().equals(this))
+            activity.updateState();
+
+        System.out.println(String.format("Grid \"%s\" Loaded", getName()));
+        //setPreview(activity.loadPreview(this));
+        //activity.removePreview(this);
+
+
     }
 }

@@ -311,11 +311,12 @@ public abstract class Animations {
             public void onAnimationStart(Animator animation) {
                 //CARD_EDIT.onChangedState(CardEdit.EditState.Closed);
                 CARD_EDIT.setState(new EditClosedState(CARD_EDIT));
+                card.setState(new CardFrontState(card));
+
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                card.setState(new CardFrontState(card));
             }
 
             @Override

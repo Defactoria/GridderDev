@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import leclerc.gridder.activities.grids.Grid;
+import leclerc.gridder.activities.grids.GridsActivity;
 
 public class User {
+    public interface OnGridChangedListener {
+        void OnGridChanged(Grid grid);
+    }
+
     private static User Instance;
 
     private boolean bIsPremium;
@@ -58,7 +63,7 @@ public class User {
     }
 
     public final long getId() {
-        return mId;
+        return 2;//return mId;
     }
 
     public void setOtherUserId(String id) {
@@ -120,17 +125,53 @@ public class User {
         return gridIndex;
     }
 
+    public final int getGridIndex(Grid g) {
+        for(int i = 0; i < getGridsCount(); i++) {
+            if(g.equals(getGrids()[i]))
+                return i;
+        }
+
+        return -1;
+    }
+
     public void addGrid(Grid g) {
         grids.add(g);
     }
 
-    public final Grid getGridById(int id) {
+    public final Grid getGridById(long id) {
         for(Grid g : grids) {
-            if(g.getId() == id) {
+            if(g.getGridId() == id) {
                 return g;
             }
         }
         return null;
+    }
+
+    public boolean changeGrid(int index) {
+        Grid g = getGrid(index);
+
+        if(g != null) {
+            gridIndex = index;
+
+            onGridChanged(g);
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean changeGrid(Grid grid) {
+        return changeGrid(getGridIndex(grid));
+    }
+
+    private OnGridChangedListener onGridChangedListener;
+    public void setOnGridChangedListener(OnGridChangedListener listener) {
+        onGridChangedListener = listener;
+    }
+
+    private void onGridChanged(Grid g) {
+        if(onGridChangedListener != null)
+            onGridChangedListener.OnGridChanged(g);
     }
 
     // =====================================================================

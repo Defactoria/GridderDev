@@ -1,0 +1,89 @@
+Applications Graphics Acceleration Info:
+Uptime: 200423449 Realtime: 326227332
+
+** Graphics info for pid 9571 [leclerc.gridder] **
+
+Recent DisplayList operations
+            DrawRenderNode
+            DrawRenderNode
+              DrawRenderNode
+                Save
+                ConcatMatrix
+                Save
+                DrawBitmap
+                RestoreToCount
+            DrawRenderNode
+            DrawRenderNode
+        DrawRenderNode
+    RestoreToCount
+  DrawRenderNode
+  DrawRenderNode
+RestoreToCount
+DrawRect
+DrawBitmap
+DrawShadow
+Save
+DrawRenderNode
+  DrawRenderNode
+    DrawRect
+  DrawRenderNode
+    Save
+    ClipRect
+    DrawRenderNode
+      DrawRenderNode
+        DrawRenderNode
+          DrawRenderNode
+            DrawRenderNode
+              DrawRect
+            DrawRenderNode
+            DrawRenderNode
+            DrawRenderNode
+              DrawRenderNode
+                Save
+                ConcatMatrix
+                Save
+                DrawBitmap
+                RestoreToCount
+            DrawRenderNode
+            DrawRenderNode
+        DrawRenderNode
+    RestoreToCount
+  DrawRenderNode
+  DrawRenderNode
+RestoreToCount
+DrawRect
+DrawBitmap
+DrawShadow
+
+Caches:
+Current memory usage / total memory usage (bytes):
+  TextureCache           135232 / 25165824
+  LayerCache                  0 / 16777216 (numLayers = 0)
+  Layers total          0 (numLayers = 0)
+  RenderBufferCache           0 /  2097152
+  GradientCache               0 /   524288
+  PathCache                   0 / 10485760
+  TessellationCache           0 /  1048576
+  TextDropShadowCache         0 /  2097152
+  PatchCache                  0 /   131072
+  FontRenderer 0 A8      524288 /   524288
+  FontRenderer 0 RGBA         0 /        0
+  FontRenderer 0 total   524288 /   524288
+Other:
+  FboCache                    0 /        0
+Total memory usage:
+  659520 bytes, 0.63 MB
+
+Profile data in ms:
+
+	leclerc.gridder/leclerc.gridder.activities.grids.GridsActivity/android.view.ViewRootImpl@2cb42c61 (visibility=0)
+View hierarchy:
+
+  leclerc.gridder/leclerc.gridder.activities.grids.GridsActivity/android.view.ViewRootImpl@2cb42c61
+  59 views, 54.34 kB of display lists
+
+
+Total ViewRootImpl: 1
+Total Views:        59
+Total DisplayList:  54.34 kB
+

@@ -90,6 +90,13 @@ public class GridsActivity extends AppCompatActivity {
         GridsRoot = findViewById(R.id.grids_root);
 
         PreviewContainer = (FrameLayout)findViewById(R.id.grids_previews_container);
+        User.getInstance().setOnGridChangedListener(new User.OnGridChangedListener() {
+            @Override
+            public void OnGridChanged(Grid grid) {
+                GridView g = (GridView)findViewById(R.id.grids_gridInterests);
+                g.setAdapter(grid.getAdapter());
+            }
+        });
 
         GridsLoader.init(this);
         initGridGestures();
@@ -261,6 +268,12 @@ public class GridsActivity extends AppCompatActivity {
         frame.addView(cardEdit);
     }
 
+    public void updateState() {
+        if(CurrentEditCard != null && CurrentEditCard.getCurrentState() != null) {
+            CurrentEditCard.getCurrentState().show(this);
+        }
+    }
+
     public void setArrowsVisibility(int visibility) {
         arrowLeft.setVisibility(visibility);
         arrowRight.setVisibility(visibility);
@@ -362,6 +375,15 @@ public class GridsActivity extends AppCompatActivity {
         runOnUiThread(retrieveCards);
     }
 
+    public void updateGridList() {
+        if(CurrentEditCard != null)
+            CurrentEditCard.updateGridList();
+    }
+
+    public EditState getState() {
+        return CurrentEditCard.getCurrentState();
+    }
+
     private void initGridGestures() {
         /*final FrameLayout g = (FrameLayout)findViewById(R.id.grids_swap_frame);
         OnSwipeListener swipeListener = new OnSwipeListener(this) {
@@ -398,8 +420,12 @@ public class GridsActivity extends AppCompatActivity {
     /*
     *   Taken from
     *   http://stackoverflow.com/questions/5536066/convert-view-to-bitmap-on-android
+    *   Do the same thing as getDrawingCache(), but you can destroy the view after taking the bitmap.
     */
     private Bitmap getPreview(View view) {
+        if(view.getWidth() <= 0 || view.getHeight() <= 0)
+            return null;
+
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
         //Bind a canvas to it
         Canvas canvas = new Canvas(returnedBitmap);
@@ -419,13 +445,14 @@ public class GridsActivity extends AppCompatActivity {
 
     public void removePreview(Grid g) {
         if(g.getPreviewView() != null)
-            PreviewContainer.removeView(g.getPreviewView());
+            g.getPreviewView().setVisibility(View.GONE);
+            //PreviewContainer.removeView(g.getPreviewView());
     }
 
     public Bitmap loadPreview(Grid g) {
         if(g.getPreviewView() != null)
             return getPreview(g.getPreviewView());
         else
-            return getPreview(findViewById(R.id.grids_grid_parent));
+            return getPreview(findViewById(R.id.grids_gridInterests));
     }
 }

@@ -2,6 +2,7 @@ package leclerc.gridder.cards.edit.states;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.graphics.drawable.VectorDrawable;
 import android.view.View;
 
 import leclerc.gridder.R;
@@ -63,8 +64,8 @@ public class EditClosedState extends EditStateContext {
         gridsActivity.setArrowsVisibility(View.VISIBLE);
         gridsActivity.setFooterUsesTick(false);
         if(User.getInstance().getCurrentGrid() == null)
-            gridsActivity.setHeaderInfos("Loading...", true, R.drawable.ic_action_tiles_large, false);
+            gridsActivity.setHeaderInfos("Loading...", true, R.drawable.ic_action_grids, false);
         else
-            gridsActivity.setHeaderInfos(User.getInstance().getCurrentGrid().getName(), true, R.drawable.ic_action_tiles_large, false);
+            gridsActivity.setHeaderInfos(User.getInstance().getCurrentGrid().getName(), true, R.drawable.ic_action_grids, false);
     }
 }

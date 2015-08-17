@@ -1,5 +1,6 @@
 package leclerc.gridder.activities.grids;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -49,7 +50,7 @@ import leclerc.gridder.activities.chat.ChatActivity;
 import leclerc.gridder.cards.CardEdit;
 import leclerc.gridder.data.User;
 
-public class GridsActivity extends AppCompatActivity {
+public class GridsActivity extends Activity {
 
     private static String STR_ADD_INTEREST = "[GRID_ADD_INTEREST]";
     private static String STR_MODIFY_INTEREST = "[GRID_MODIFY_INTEREST]";
@@ -61,7 +62,7 @@ public class GridsActivity extends AppCompatActivity {
     private TextView footerText;
     private ImageView footerTick;
     private Button footerButton;
-    private RelativeLayout footerLayout;
+    private FrameLayout footerLayout;
 
     private TextView headerText;
     private ImageButton headerImgLeft, headerImgRight;
@@ -93,7 +94,7 @@ public class GridsActivity extends AppCompatActivity {
         User.getInstance().setOnGridChangedListener(new User.OnGridChangedListener() {
             @Override
             public void OnGridChanged(Grid grid) {
-                GridView g = (GridView)findViewById(R.id.grids_gridInterests);
+                GridView g = (GridView) findViewById(R.id.grids_gridInterests);
                 g.setAdapter(grid.getAdapter());
             }
         });
@@ -154,7 +155,7 @@ public class GridsActivity extends AppCompatActivity {
     }
 
     private void initHeader() {
-        try {
+        /*try {
             ActionBar bar = getSupportActionBar();
             bar.setDisplayShowCustomEnabled(true);
             bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -179,7 +180,7 @@ public class GridsActivity extends AppCompatActivity {
         }
         catch(NullPointerException e) {
 
-        }
+        }*/
 
         STR_ADD_INTEREST = getResources().getString(R.string.grid_add_interest);
         STR_MODIFY_INTEREST = getResources().getString(R.string.grid_modify_interest);
@@ -200,7 +201,7 @@ public class GridsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (CurrentEditCard != null) {
-                    if(CurrentEditCard.getCurrentState() != null)
+                    if (CurrentEditCard.getCurrentState() != null)
                         CurrentEditCard.getCurrentState().extra();
                 }
             }
@@ -218,7 +219,7 @@ public class GridsActivity extends AppCompatActivity {
 
         footerText = (TextView)findViewById(R.id.grids_txtSwipeUpConversation);
         footerTick = (ImageView)findViewById(R.id.grids_imgSwipeUpConversation);
-        footerButton = (Button)findViewById(R.id.grids_btnConfirm);
+        /*footerButton = (Button)findViewById(R.id.grids_btnConfirm);
 
         footerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,11 +227,11 @@ public class GridsActivity extends AppCompatActivity {
                 if (CurrentEditCard != null)
                     CurrentEditCard.validate();
             }
-        });
+        });*/
 
         footerTick.setColorFilter(Color.parseColor("#94CC66"), PorterDuff.Mode.MULTIPLY);
 
-        footerLayout = (RelativeLayout)findViewById(R.id.grids_footer);
+        footerLayout = (FrameLayout)findViewById(R.id.grids_footer);
     }
 
     private void initEditCard() {
@@ -282,8 +283,8 @@ public class GridsActivity extends AppCompatActivity {
     public void setFooterUsesTick(boolean usesTick) {
         footerTick.setVisibility(usesTick ? View.VISIBLE : View.GONE);
         footerText.setVisibility(usesTick ? View.GONE : View.VISIBLE);
-        footerButton.setVisibility(usesTick ? View.VISIBLE : View.GONE);
-        footerButton.setEnabled(usesTick);
+        /*footerButton.setVisibility(usesTick ? View.VISIBLE : View.GONE);
+        footerButton.setEnabled(usesTick);*/
     }
 
     public void setHeaderInfos(boolean isAddInterest, boolean usesLeftImg, int resLeftImg, boolean usesRightImg) {
@@ -295,7 +296,7 @@ public class GridsActivity extends AppCompatActivity {
         headerImgLeft.setVisibility(usesLeftImg ? View.VISIBLE : View.GONE);
         if(usesLeftImg) {
             headerImgLeft.setImageDrawable(getResources().getDrawable(resLeftImg));
-            headerImgLeft.setColorFilter(Color.parseColor("#FF81D4FA"));
+            //headerImgLeft.setColorFilter(Color.parseColor("#FF81D4FA"));
         }
         else
             headerImgLeft.setImageBitmap(null);
@@ -385,8 +386,7 @@ public class GridsActivity extends AppCompatActivity {
     }
 
     private void initGridGestures() {
-        /*final FrameLayout g = (FrameLayout)findViewById(R.id.grids_swap_frame);
-        OnSwipeListener swipeListener = new OnSwipeListener(this) {
+        /*OnSwipeListener swipeListener = new OnSwipeListener(this) {
             @Override
             public void onSwipeLeft() {
                 //headerText.setText(User.getInstance().getPrevGrid().getName());
@@ -398,9 +398,21 @@ public class GridsActivity extends AppCompatActivity {
                 //headerText.setText(User.getInstance().getNextGrid().getName());
                 Toast.makeText(g.getContext(), "Right", Toast.LENGTH_SHORT).show();
             }
+        };*/
+
+        View.OnTouchListener listener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //footerLayout.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 120));
+
+
+                return true;
+            }
         };
 
-        g.setOnTouchListener(swipeListener);*/
+
+
+        footerLayout.setOnTouchListener(listener);
     }
 
     public void addPreview(Grid g) {

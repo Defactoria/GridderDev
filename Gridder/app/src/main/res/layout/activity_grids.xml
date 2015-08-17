@@ -8,18 +8,51 @@
     tools:context="leclerc.gridder.TestGridsViewActivity">
 
     <FrameLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:background="#FF0091EA"
+        android:elevation="10dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_action_list"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gridder 0.0.3"
+            android:layout_gravity="center"
+            android:textColor="#FFF"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@android:drawable/sym_action_chat"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="14dp"/>
+
+
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/grids_header"
         android:background="#FFFFFFFF"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:layout_alignParentTop="true">
+        android:layout_below="@id/header">
 
         <ImageButton
             android:id="@+id/grids_header_imgLeft"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_action_tiles_large"
+            android:src="@drawable/ic_action_grids"
             android:scaleType="fitXY"
             android:layout_marginStart="10dp"
             android:layout_gravity="center_vertical"
@@ -28,8 +61,8 @@
 
         <ImageButton
             android:id="@+id/grids_header_imgRight"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_action_cancel"
             android:scaleType="fitXY"
@@ -49,13 +82,12 @@
 
     </FrameLayout>
 
-
-
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/grids_footer"
-        android:background="#FFFFFFFF"
+        android:background="#FFF"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="65dp"
+        android:paddingTop="5dp"
         android:layout_alignParentBottom="true">
 
         <TextView
@@ -63,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Swipe up to start a conversation"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:textSize="20sp"
             android:visibility="visible"/>
 
@@ -71,7 +103,7 @@
             android:id="@+id/grids_imgSwipeUpConversation"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:src="@drawable/ic_action_tick"
             android:scaleType="fitXY"
             android:visibility="gone"/>
@@ -80,32 +112,28 @@
             android:id="@+id/grids_arrow_left"
             android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="1dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/ic_action_arrow_top"
-            android:layout_toStartOf="@id/grids_txtSwipeUpConversation"
+            android:layout_gravity="center_vertical|end"
             />
 
         <ImageView
             android:id="@+id/grids_arrow_right"
             android:layout_width="25dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="10dp"
             android:src="@drawable/ic_action_arrow_top"
-            android:layout_toEndOf="@id/grids_txtSwipeUpConversation"
+            android:layout_gravity="center_vertical|start"
             />
 
-        <Button
+        <!--<Button
             android:id="@+id/grids_btnConfirm"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:enabled="true"
-            style="@android:style/Widget.Holo.Button.Borderless"/>
+            style="@android:style/Widget.Holo.Button.Borderless"/>-->
 
-    </RelativeLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/grids_grid_parent"
@@ -145,13 +173,6 @@
 
 
     </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/grids_swap_frame"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/grids_footer"
-        android:layout_below="@id/grids_header"/>
 
     <FrameLayout
         android:id="@+id/grids_frameGrid"

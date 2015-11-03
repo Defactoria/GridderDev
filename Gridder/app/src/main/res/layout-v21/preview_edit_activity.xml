@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/edit_scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <FrameLayout
+                android:id="@+id/edit_header_image_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="70dp"
+                android:background="@color/background_material_dark"
+                android:transitionName="@string/transition_name_interest_base">
+
+                <ImageView
+                    android:id="@+id/edit_header_image"
+                    android:layout_width="fill_parent"
+                    android:layout_height="350dp"
+                    android:transitionName="@string/transition_name_interest_image"
+                    android:src="@drawable/tv_theflash"
+                    android:visibility="visible"
+                    android:scaleType="centerCrop" />
+
+                <FrameLayout
+                    android:id="@+id/edit_header_gradient"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/header_gradient"
+                    android:alpha="0.0" />
+
+                <Button
+                    android:id="@+id/edit_header_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="5dp"
+                    android:text="Use Color"
+                    android:background="@drawable/primary_round"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/edit_header_name_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:transitionName="@string/transition_name_interest_frame"
+                android:elevation="2dp"
+                android:translationZ="1dp"
+                android:background="@color/background_material_dark">
+
+                <TextView
+                    android:id="@+id/edit_header_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:transitionName="@string/transition_name_interest_name"
+                    android:text="#TheFlash"
+                    android:textSize="30sp"
+                    android:textColor="#FFF"
+                    android:shadowColor="#000"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    />
+
+                <Button
+                    android:id="@+id/edit_header_modify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"
+                    android:text="Modify"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:visibility="visible"
+                    />
+
+            </FrameLayout>
+
+            <include layout="@layout/edition_categories_header" />
+            <!--<include layout="@layout/edition_background_color"  />-->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--<RelativeLayout
+        android:id="@+id/edit_header_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:id="@+id/edit_header_image_layout"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="70dp"
+            android:background="@color/background_material_dark">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_header_image"
+                android:src="@drawable/tv_theflash"
+                android:visibility="visible"
+                android:scaleType="centerCrop" />
+
+            <FrameLayout
+                android:id="@+id/edit_header_gradient"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/header_gradient"
+                android:alpha="1.0" />
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/edit_header_name_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_material_dark"
+            android:elevation="2dp"
+            android:translationZ="1dp"
+            android:layout_below="@id/edit_header_image_layout">
+
+            <Button
+                android:id="@+id/edit_header_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:text="Modify"
+                style="?android:attr/borderlessButtonStyle"
+                />
+
+            <TextView
+                android:id="@+id/edit_header_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="#TheFlash"
+                android:textSize="30sp"
+                android:textColor="#FFF"
+                android:shadowColor="#000"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_toStartOf="@id/edit_header_modify"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:elevation="2dp"
+                android:translationZ="1dp">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_action_add"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="10dp"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Categories"
+                    android:textSize="24sp"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"/>
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="#50000000"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_gravity="center"
+                    android:text="No category yet. Add one to improve the chat match !"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_action_add"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:text="TV Series"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_action_add"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:text="Books"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Show more categories"
+                    android:background="#80FFFFFF"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:elevation="2dp"
+                android:translationZ="1dp">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Background Color"
+                    android:textSize="24sp"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"/>
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="#50000000"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+            </FrameLayout>
+
+        </LinearLayout>
+
+</RelativeLayout>
+
+    <android.gesture.GestureOverlayView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/gestureOverlayView"
+        android:visibility="gone"
+        android:gestureColor="#00000000"/>
+
+    <Button
+        android:id="@+id/edit_header_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/edit_header_name_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/primary_round"
+        android:text="Use color" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/imageButton"
+        android:src="@drawable/ic_action_arrow_left"
+        android:background="#00ffffff"
+        android:layout_margin="10dp" />
+
+
+    -->
+</RelativeLayout>

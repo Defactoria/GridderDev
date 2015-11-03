@@ -39,4 +39,11 @@
 
     <string name="grid_add_interest">Ajouter intérêt</string>
     <string name="grid_modify_interest">Modifier intérêt</string>
+
+    <string name="transition_name_interest_image">transition:INTEREST_IMAGE</string>
+    <string name="transition_name_interest_name">transition:INTEREST_NAME</string>
+    <string name="transition_name_interest_frame">transition:INTEREST_FRAME</string>
+    <string name="transition_name_interest_base">transition:INTEREST_BASE</string>
+
+    <string name="edit_categories">Catégories</string>
 </resources>

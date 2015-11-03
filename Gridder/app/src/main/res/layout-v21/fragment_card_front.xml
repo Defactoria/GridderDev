@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="5dp">
+
+    <FrameLayout
+        android:id="@+id/card_front_base"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:transitionName="@string/transition_name_interest_base">
+
+        <ImageView
+            android:id="@+id/card_front_image"
+            android:background="@android:color/transparent"
+            android:src="@drawable/bg_interest_add"
+            android:transitionName="@string/transition_name_interest_image"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:id="@+id/card_front_frame"
+            android:layout_width="fill_parent"
+            android:layout_height="36dp"
+            android:transitionName="@string/transition_name_interest_frame"
+            android:background="#CF000000"
+            android:layout_gravity="bottom"
+            android:visibility="visible"
+            android:elevation="5dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/card_front_hashtag"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:transitionName="@string/transition_name_interest_name"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="13sp"
+                android:layout_gravity="center_vertical"
+                android:text="#TheFlash"/>
+
+        </FrameLayout>
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/card_front_button"
+        style="@android:style/Widget.Holo.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

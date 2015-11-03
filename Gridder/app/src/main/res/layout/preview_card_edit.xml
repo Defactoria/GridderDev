@@ -41,7 +41,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_margin="10dp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/preview_card_edit_interest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,9 +57,9 @@
                 android:shadowDx="3"
                 android:shadowDy="3"
                 android:shadowRadius="3"
-                android:cursorVisible="false"
-                android:inputType="textNoSuggestions"
                 android:background="@android:color/transparent"/>
+
+
 
         </RelativeLayout>
 

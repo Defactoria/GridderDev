@@ -60,6 +60,7 @@ public class EditDefaultState extends EditStateContext {
         if (card != null) {
             GridsActivity activity = (GridsActivity) getParent().getContext();
             activity.updateGrid();
+            card.Front.updateFrameColor();
         }
 
         getParent().resetTmpValues();

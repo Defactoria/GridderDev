@@ -1,14 +1,17 @@
 package leclerc.gridder.data;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v7.graphics.Palette;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import leclerc.gridder.R;
 import leclerc.gridder.cards.InterestCard;
 
 
@@ -16,6 +19,8 @@ import leclerc.gridder.cards.InterestCard;
  * Created by Antoine on 2015-04-12.
  */
 public class Interest {
+    private final int SUBTITLE_COLOR_DEFAULT = Color.parseColor(("#CF444444"));
+
     public interface ImageChangedListener {
         void onChanged(InterestState state, Bitmap old, Bitmap newBmp);
     }
@@ -78,7 +83,7 @@ public class Interest {
     public void setCustomImageSrc(String src) {
         mCustomImageSrc = src;
         if(mCustomImageSrc == null)
-            mCustomImage = null;
+            setCustomImage(null);
     }
 
     // Set custom image for the interest
@@ -87,9 +92,64 @@ public class Interest {
             Bitmap oldImage = mCustomImage;
             mCustomImage = bitmap;
 
+            // Update Frame & Modify Button Base Color
+            setBaseColors();
+
             for (ImageChangedListener listener : imageChangedListeners) {
                 listener.onChanged(InterestState.Custom, oldImage, mCustomImage);
             }
+        }
+    }
+
+    private int mFrameBaseColor = SUBTITLE_COLOR_DEFAULT;
+    private int mModifyBaseColor = 0;
+    private int mBodyTextColor = Color.WHITE;
+    private int mTitleTextColor = Color.WHITE;
+
+    public int getFrameBaseColor() { return mFrameBaseColor; }
+    public int getModifyBaseColor() { return mModifyBaseColor; }
+    public int getBodyTextColor() { return mBodyTextColor; }
+    public int getTitleTextColor() { return mTitleTextColor; }
+
+    @TargetApi(21)
+    private void setBaseColors() {
+        if(getCard() != null) {
+            final int baseModifyColor = getCard().getResources().getColor(R.color.app_primary);
+
+            if (getCustomImage() != null) {
+                final int alpha = 255;
+
+                Palette p = Palette.generate(getCustomImage());
+                int color = p.getVibrantColor(SUBTITLE_COLOR_DEFAULT);
+
+                float[] hsv = new float[3];
+                Color.colorToHSV(color, hsv);
+
+                mFrameBaseColor = Color.HSVToColor(alpha, hsv);
+                color = color == SUBTITLE_COLOR_DEFAULT ? baseModifyColor : color;
+                mModifyBaseColor = color;
+
+                if(p.getVibrantSwatch() != null) {
+                    mBodyTextColor = p.getVibrantSwatch().getBodyTextColor();
+                    mTitleTextColor = p.getVibrantSwatch().getTitleTextColor();
+                }
+                else {
+                    mBodyTextColor = Color.WHITE;
+                    mTitleTextColor = Color.WHITE;
+                }
+
+            } else {
+                mFrameBaseColor = SUBTITLE_COLOR_DEFAULT;
+                mModifyBaseColor = baseModifyColor;
+                mBodyTextColor = Color.WHITE;
+                mTitleTextColor = Color.WHITE;
+            }
+        }
+        else {
+            mFrameBaseColor = SUBTITLE_COLOR_DEFAULT;
+            mModifyBaseColor = 0;
+            mBodyTextColor = Color.WHITE;
+            mTitleTextColor = Color.WHITE;
         }
     }
 
@@ -112,7 +172,7 @@ public class Interest {
     public Interest(long id, String name) {
         mId = id;
         setName(name);
-        changeState(InterestState.NONE);
+        changeState(InterestState.Color);
     }
 
     // Init the interest (usually used when loading from database)
@@ -151,7 +211,8 @@ public class Interest {
     }
 
     public void setState(InterestState state) {
-        mState = state;
+        //mState = state;
+        changeState(state);
     }
 
     public void delete() {
@@ -173,8 +234,8 @@ public class Interest {
     // =======================================================================================
     // =======================================================================================
 
-    public static final int CARD_RES_WIDTH = 350;
-    public static final int CARD_RES_HEIGHT = 350;
+    public static final int CARD_RES_WIDTH = 512;
+    public static final int CARD_RES_HEIGHT = 512;
     public static final long NEEDS_UPDATE_ID = -1;
 
     private long mId;

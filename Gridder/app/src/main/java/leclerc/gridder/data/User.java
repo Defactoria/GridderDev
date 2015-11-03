@@ -25,7 +25,7 @@ public class User {
     private User() {
         setIsPremium(true);
         setUsername("TEST_USER");
-        setId(1);
+        setId(0);
     }
 
     public static User getInstance() {

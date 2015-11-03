@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/edition_backgroundcolor_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Background Color"
+            android:textSize="28sp"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_material_dark"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/edition_backgroundcolor_title"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current :"
+            android:textSize="20sp"
+            android:layout_gravity="end|center_vertical"/>
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/primary_round"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change"
+            android:textColor="#000"
+            android:layout_marginStart="10dp"/>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center">
+        <RadioButton
+            android:id="@+id/edition_backgroundcolor_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Custom"
+            android:padding="10dp"/>
+
+        <RadioButton
+            android:id="@+id/edition_backgroundcolor_match"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Match with Image"
+            android:padding="10dp"/>
+    </RadioGroup>
+
+</LinearLayout>

@@ -1,8 +1,25 @@
 package leclerc.gridder.cards.card.states;
 
 import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.text.method.MovementMethod;
+import android.transition.AutoTransition;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.view.View;
 
+import leclerc.gridder.R;
+import leclerc.gridder.activities.grids.GridsActivity;
+import leclerc.gridder.activities.login.LoginActivity;
+import leclerc.gridder.cards.CardFront;
 import leclerc.gridder.cards.InterestCard;
 import leclerc.gridder.data.Interest;
 import leclerc.gridder.tools.Animations;
@@ -32,7 +49,20 @@ public class CardFrontState extends CardStateContext {
                 Animations.getGoToEditAnimation(getParent().getContext(), getParent().getInterest().getIndex()).start();
             }
             else {
-                getParent().setState(new CardBackState(getParent()));
+                //getParent().setState(new CardBackState(getParent()));
+                CardFront front = getParent().Front;
+                Context context = getParent().getContext();
+
+                Intent intent = new Intent(context, LoginActivity.class);
+                intent.putExtra(LoginActivity.ID, getParent().getInterest().getId());
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        (Activity) context,
+                        new Pair<View, String>(front.getFrameView(), context.getString(R.string.transition_name_interest_frame)),
+                        new Pair<View, String>(front.getImageView(), context.getString(R.string.transition_name_interest_image)),
+                        new Pair<View, String>(front.getHashtagView(), context.getString(R.string.transition_name_interest_name))
+                );
+                ActivityCompat.startActivity((Activity) context, intent, options.toBundle());
             }
         }
     }

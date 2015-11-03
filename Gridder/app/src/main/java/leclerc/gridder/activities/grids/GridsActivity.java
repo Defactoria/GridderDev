@@ -49,6 +49,7 @@ import leclerc.gridder.R;
 import leclerc.gridder.activities.chat.ChatActivity;
 import leclerc.gridder.cards.CardEdit;
 import leclerc.gridder.data.User;
+import leclerc.gridder.tools.TestingTransition;
 
 public class GridsActivity extends Activity {
 
@@ -73,8 +74,10 @@ public class GridsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grids);
@@ -219,7 +222,7 @@ public class GridsActivity extends Activity {
 
         footerText = (TextView)findViewById(R.id.grids_txtSwipeUpConversation);
         footerTick = (ImageView)findViewById(R.id.grids_imgSwipeUpConversation);
-        /*footerButton = (Button)findViewById(R.id.grids_btnConfirm);
+        footerButton = (Button)findViewById(R.id.grids_btnConfirm);
 
         footerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,7 +230,7 @@ public class GridsActivity extends Activity {
                 if (CurrentEditCard != null)
                     CurrentEditCard.validate();
             }
-        });*/
+        });
 
         footerTick.setColorFilter(Color.parseColor("#94CC66"), PorterDuff.Mode.MULTIPLY);
 

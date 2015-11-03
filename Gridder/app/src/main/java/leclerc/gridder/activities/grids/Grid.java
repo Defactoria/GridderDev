@@ -142,7 +142,7 @@ public class Grid extends View implements ILoading {
         return mAdapter;
     }
 
-    public Interest[] getInterests(Long[] ids) {
+    public Interest[] getInterests(Long... ids) {
 
         List<Interest> cards = new ArrayList<>();
         Interest c;

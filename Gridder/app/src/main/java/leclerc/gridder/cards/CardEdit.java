@@ -2,9 +2,16 @@ package leclerc.gridder.cards;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +32,7 @@ import java.util.Random;
 
 import leclerc.gridder.activities.grids.Grid;
 import leclerc.gridder.activities.grids.GridAdapter;
+import leclerc.gridder.activities.login.LoginActivity;
 import leclerc.gridder.cards.edit.states.EditClosedState;
 import leclerc.gridder.cards.edit.states.EditOptionsState;
 import leclerc.gridder.cards.edit.states.EditPictureState;
@@ -49,7 +57,7 @@ public class CardEdit extends FrameLayout implements UpdateCard {
     private Interest mInterestData;
 
     private ImageView imgInterest;
-    private EditText editHashtag;
+    private TextView editHashtag;
 
     private Bitmap tmpCustomImage = null;
     private int tmpColor = Color.BLACK;
@@ -62,6 +70,8 @@ public class CardEdit extends FrameLayout implements UpdateCard {
 
     private View viewEditCard;
     private View viewGrids;
+
+    private FloatingActionButton btnFloatingModify;
 
     public CardEdit(Context context) {
         super(context);
@@ -125,6 +135,13 @@ public class CardEdit extends FrameLayout implements UpdateCard {
 
         if(tmpState == Interest.InterestState.Add)
             tmpState = Interest.InterestState.Color;
+
+        /*if(getInterest().getModifyBaseColor() == 0){
+            btnFloatingModify.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.app_primary)));
+        }
+        else {
+            btnFloatingModify.setBackgroundTintList(ColorStateList.valueOf(getInterest().getModifyBaseColor()));
+        }*/
 
         update();
     }
@@ -191,7 +208,7 @@ public class CardEdit extends FrameLayout implements UpdateCard {
         btnChangeImage = (ImageButton)v.findViewById(R.id.preview_card_edit_changeImageButton);
         btnChangeColors = (ImageButton)v.findViewById(R.id.preview_card_edit_editColors);
         imgInterest = (ImageView)v.findViewById(R.id.preview_card_edit_image);
-        editHashtag = (EditText)v.findViewById(R.id.preview_card_edit_interest);
+        editHashtag = (TextView)v.findViewById(R.id.preview_card_edit_interest);
 
         // OPTIONS
         final View options = inflater.inflate(R.layout.fragment_card_options_color_categories, null, false);
@@ -220,8 +237,19 @@ public class CardEdit extends FrameLayout implements UpdateCard {
         mPictureView.addView(picture);
 
         // END PICTURE
-
         final CardEdit instance = this;
+
+        /*btnFloatingModify = (FloatingActionButton)v.findViewById(R.id.card_edit_floating_modify);
+        btnFloatingModify.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) instance.getContext(), v, "VIEW_IMAGE");
+                Bundle b = options.toBundle();
+
+                ActivityCompat.startActivity((Activity) instance.getContext(), new Intent(instance.getContext(), LoginActivity.class), options.toBundle());
+            }
+        });*/
+
         mLayout = (RelativeLayout)v.findViewById(R.id.card_edit_layout);
         btnChangeColors.setOnClickListener(new OnClickListener() {
             @Override
@@ -428,7 +456,7 @@ public class CardEdit extends FrameLayout implements UpdateCard {
         return editHashtag.getText().toString();
     }
 
-    public EditText getEditHashtag() {
+    public TextView getEditHashtag() {
         return editHashtag;
     }
 

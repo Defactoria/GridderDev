@@ -41,10 +41,15 @@
     <string name="grid_add_interest">Add interest</string>
     <string name="grid_modify_interest">Modify interest</string>
 
-    <string name="transition_name_interest_image">transition:INTEREST_IMAGE</string>
-    <string name="transition_name_interest_name">transition:INTEREST_NAME</string>
-    <string name="transition_name_interest_frame">transition:INTEREST_FRAME</string>
-    <string name="transition_name_interest_base">transition:INTEREST_BASE</string>
+    <string name="transition_name_interest_image" translatable="false">transition:INTEREST_IMAGE</string>
+    <string name="transition_name_interest_name" translatable="false">transition:INTEREST_NAME</string>
+    <string name="transition_name_interest_frame" translatable="false">transition:INTEREST_FRAME</string>
+    <string name="transition_name_interest_base" translatable="false">transition:INTEREST_BASE</string>
 
     <string name="edit_categories">Categories</string>
+    <string name="saved_prompt">Modifications Saved</string>
+    <string name="edition_change_to_color">Use Color</string>
+    <string name="edition_change_to_image">Use Image</string>
+    <string name="edition_modify">Modify</string>
+    <string name="grids_your_grids">YOUR GRIDS</string>
 </resources>

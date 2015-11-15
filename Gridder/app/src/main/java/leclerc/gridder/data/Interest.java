@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.graphics.Palette;
 
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import leclerc.gridder.R;
 import leclerc.gridder.cards.InterestCard;
+import leclerc.gridder.tools.PaletteColors;
 
 
 /**
@@ -72,6 +74,7 @@ public class Interest {
 
     private String mCustomImageSrc;
     private Bitmap mCustomImage;
+    private Bitmap mOldImage;
     // Get custom image of the interest
     public Bitmap getCustomImage() {
         return mCustomImage;
@@ -89,49 +92,90 @@ public class Interest {
     // Set custom image for the interest
     public void setCustomImage(Bitmap bitmap) {
         if(getCustomImage() == null || !getCustomImage().equals(bitmap)) {
-            Bitmap oldImage = mCustomImage;
+            mOldImage = mCustomImage;
             mCustomImage = bitmap;
 
             // Update Frame & Modify Button Base Color
-            setBaseColors();
+            updateVisual();
 
             for (ImageChangedListener listener : imageChangedListeners) {
-                listener.onChanged(InterestState.Custom, oldImage, mCustomImage);
+                listener.onChanged(InterestState.Custom, mOldImage, mCustomImage);
             }
         }
     }
+
+    public void updateVisual() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            generatePalette();
+        }
+    }
+
+    // ============================================================
+    //  Colors
+    // ============================================================
+
+    private PaletteColors mColors = new PaletteColors();
+    public PaletteColors getColors() { return mColors; }
 
     private int mFrameBaseColor = SUBTITLE_COLOR_DEFAULT;
     private int mModifyBaseColor = 0;
     private int mBodyTextColor = Color.WHITE;
     private int mTitleTextColor = Color.WHITE;
 
+    private static final int FRAME_ALPHA = 200;
+
+    // Colors for Edition Activity
     public int getFrameBaseColor() { return mFrameBaseColor; }
     public int getModifyBaseColor() { return mModifyBaseColor; }
     public int getBodyTextColor() { return mBodyTextColor; }
     public int getTitleTextColor() { return mTitleTextColor; }
 
+    // Generate a palette from current image
+    @TargetApi(21)
+    private void generatePalette() {
+        if(getCustomImage() == null) {
+            return;
+        }
+
+        Palette.generateAsync(getCustomImage(),
+                new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        mColors.Vibrant = palette.getVibrantSwatch();
+                        mColors.DarkVibrant = palette.getDarkVibrantSwatch();
+                        mColors.LightVibrant = palette.getLightVibrantSwatch();
+                        mColors.Muted = palette.getMutedSwatch();
+                        mColors.DarkMuted = palette.getDarkMutedSwatch();
+                        mColors.LightMuted = palette.getLightMutedSwatch();
+
+                        setBaseColors();
+
+                        if(getCard() != null) {
+                            getCard().Front.updateFrameColor();
+                        }
+                    }
+                });
+    }
+
+    // Set colors from palette
     @TargetApi(21)
     private void setBaseColors() {
         if(getCard() != null) {
             final int baseModifyColor = getCard().getResources().getColor(R.color.app_primary);
 
             if (getCustomImage() != null) {
-                final int alpha = 255;
-
-                Palette p = Palette.generate(getCustomImage());
-                int color = p.getVibrantColor(SUBTITLE_COLOR_DEFAULT);
+                int color = getColors().Vibrant != null ? getColors().Vibrant.getRgb() : SUBTITLE_COLOR_DEFAULT;
 
                 float[] hsv = new float[3];
                 Color.colorToHSV(color, hsv);
 
-                mFrameBaseColor = Color.HSVToColor(alpha, hsv);
+                mFrameBaseColor = Color.HSVToColor(FRAME_ALPHA, hsv);
                 color = color == SUBTITLE_COLOR_DEFAULT ? baseModifyColor : color;
                 mModifyBaseColor = color;
 
-                if(p.getVibrantSwatch() != null) {
-                    mBodyTextColor = p.getVibrantSwatch().getBodyTextColor();
-                    mTitleTextColor = p.getVibrantSwatch().getTitleTextColor();
+                if(getColors().Vibrant != null) {
+                    mBodyTextColor = getColors().Vibrant.getBodyTextColor();
+                    mTitleTextColor = getColors().Vibrant.getTitleTextColor();
                 }
                 else {
                     mBodyTextColor = Color.WHITE;
@@ -162,6 +206,10 @@ public class Interest {
     public void setColor(int color) {
         mColor = color;
     }
+
+    // ============================================================
+    //  END Colors
+    // ============================================================
 
     public Interest() {
         mId = -1;
@@ -229,6 +277,30 @@ public class Interest {
     public void setOnDeletedListener(InterestDeletedListener listener) {
         deletedListener = listener;
     }
+
+    private List<String> mCategories = new ArrayList<>();
+    public String[] getCategories() {
+        String[] array = new String[mCategories.size()];
+        mCategories.toArray(array);
+        return array;
+    }
+
+    public void setCategories() {
+
+
+        if(onCategoriesChangedHandler != null)
+            onCategoriesChangedHandler.OnCategoriesChanged(getCategories());
+    }
+
+    interface OnCategoriesChangedHandler {
+        void OnCategoriesChanged(String[] categories);
+    }
+
+    private OnCategoriesChangedHandler onCategoriesChangedHandler;
+    public void setOnCategoriesChangedHandler(OnCategoriesChangedHandler handler) {
+        onCategoriesChangedHandler = handler;
+    }
+
 
     // =======================================================================================
     // =======================================================================================

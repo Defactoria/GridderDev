@@ -7,7 +7,7 @@
         android:id="@+id/card_edit_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/card_edit_layout"
@@ -86,7 +86,7 @@
         android:id="@+id/card_edit_grids_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="#FFF">
 
         <GridView
@@ -99,6 +99,17 @@
             android:verticalSpacing="3dp"
             android:paddingStart="1dp"
             android:paddingEnd="1dp"/>
+
+        <leclerc.gridder.tools.AddingGridButton
+            android:id="@+id/btnAddGrid"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:elevation="2dp"
+            android:translationZ="1dp"
+            />
 
     </RelativeLayout>
 

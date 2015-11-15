@@ -2,6 +2,7 @@ package leclerc.gridder.activities.edition;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +26,8 @@ public class CategoryInfoView extends View {
     private LinearLayout rootView;
     private View headerView;
 
-    public CategoryInfoView(Context context) {
-        super(context);
+    public CategoryInfoView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
         categoriesList = new ArrayList<>();
 
@@ -37,7 +38,7 @@ public class CategoryInfoView extends View {
     }
 
     public void updateInfos(Interest interest) {
-        rootView.removeViews(1, categoriesList.size());
+        /*rootView.removeViews(1, categoriesList.size());
         categoriesList.clear();
 
         String[] categories = interest.getCategories();
@@ -50,6 +51,6 @@ public class CategoryInfoView extends View {
             textView.setPadding(padding, padding, padding, padding);
 
 
-        }
+        }*/
     }
 }

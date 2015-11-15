@@ -77,6 +77,6 @@ public class EditGridsState extends EditStateContext {
     public void show(GridsActivity gridsActivity) {
         gridsActivity.setArrowsVisibility(View.GONE);
         gridsActivity.setFooterUsesTick(true);
-        gridsActivity.setHeaderInfos("YOUR GRIDS", true, R.drawable.ic_action_arrow_left, false);
+        gridsActivity.setHeaderInfos(getParent().getResources().getString(R.string.grids_your_grids), true, R.drawable.ic_action_arrow_left, false);
     }
 }

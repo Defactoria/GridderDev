@@ -1,4 +1,4 @@
-package leclerc.gridder.activities.login;
+package leclerc.gridder.activities.edition;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ import android.support.v7.graphics.Palette;
 import android.transition.AutoTransition;
 import android.transition.ChangeBounds;
 import android.transition.ChangeImageTransform;
+import android.transition.ChangeTransform;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Scene;
@@ -63,16 +65,19 @@ import com.google.android.gms.vision.Frame;
 import java.util.List;
 
 import leclerc.gridder.R;
+import leclerc.gridder.activities.edition.CategoryInfoView;
 import leclerc.gridder.activities.grids.GridsActivity;
 import leclerc.gridder.data.Interest;
 import leclerc.gridder.data.User;
 import leclerc.gridder.tools.AdapterFactory;
+import leclerc.gridder.tools.AddingGridButton;
+import leclerc.gridder.tools.PaletteColors;
 import leclerc.gridder.tools.TestingTransition;
 
 /**
  * Created by Antoine on 2015-09-07.
  */
-public class LoginActivity extends Activity {
+public class EditionActivity extends Activity {
     public final static String ID = "key:Interest_ID";
 
     private FrameLayout layout;
@@ -89,7 +94,6 @@ public class LoginActivity extends Activity {
     ImageView imageView;
 
     private Interest CurrentInterest;
-    private Palette generatedPalette;
 
     private PaletteColors Colors;
 
@@ -102,29 +106,48 @@ public class LoginActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final LoginActivity instance = this;
+        final EditionActivity instance = this;
         Colors = new PaletteColors();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             TransitionSet setEnter = new TransitionSet();
-            setEnter.addTransition(new ChangeBounds());
+            setEnter.addTransition(new AutoTransition());
+            //setEnter.addTransition(new TestingTransition());
             //set.addTransition(new Explode());
-            //setEnter.addTransition(new AutoTransition());
+            setEnter.excludeTarget(android.R.id.statusBarBackground, true);
             setEnter.setOrdering(TransitionSet.ORDERING_TOGETHER);
 
+            // Entering previous activity
             setEnter.addListener(new Transition.TransitionListener() {
+                @TargetApi(21)
                 @Override
                 public void onTransitionStart(Transition transition) {
-                    if(btnModifyName != null)
+                    if (btnModifyName != null)
                         btnModifyName.setVisibility(View.GONE);
+
+                    int app_primary_color = getResources().getColor(R.color.app_primary);
+                    int color = Colors.Vibrant != null ? Colors.Vibrant.getRgb() : Colors.DarkMuted != null ? Colors.DarkMuted.getRgb() : app_primary_color;
+
+                    ValueAnimator animColor = ValueAnimator.ofArgb(getWindow().getStatusBarColor(), color);
+                    animColor.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            Object value = animation.getAnimatedValue();
+                            if(value != null) {
+                                int c = (int)value;
+                                getWindow().setStatusBarColor(c);
+                            }
+                        }
+                    });
+                    animColor.start();
                 }
 
                 @Override
                 public void onTransitionEnd(Transition transition) {
-                    AnimatorSet animBtnModifyNameIn = (AnimatorSet)AnimatorInflater.loadAnimator(instance, R.animator.anim_pop_in);
+                    AnimatorSet animBtnModifyNameIn = (AnimatorSet) AnimatorInflater.loadAnimator(instance, R.animator.anim_pop_in);
                     animBtnModifyNameIn.setTarget(btnModifyName);
 
-                    AnimatorSet switchBackgroundAnim = (AnimatorSet)AnimatorInflater.loadAnimator(instance, R.animator.anim_pop_in);
+                    AnimatorSet switchBackgroundAnim = (AnimatorSet) AnimatorInflater.loadAnimator(instance, R.animator.anim_pop_in);
                     switchBackgroundAnim.setTarget(btnSwitchBackground);
 
                     AnimatorSet buttonsAnim = new AnimatorSet();
@@ -172,18 +195,19 @@ public class LoginActivity extends Activity {
             });
 
             TransitionSet setExit = new TransitionSet();
+            //setExit.addTransition(new ChangeBounds());
+            setExit.addTransition(new AutoTransition());
             //setExit.addTransition(new TestingTransition());
-            //set.addTransition(new Explode());
-            setExit.addTransition(new ChangeBounds());
             setExit.setOrdering(TransitionSet.ORDERING_TOGETHER);
 
             setExit.addListener(new Transition.TransitionListener() {
+                @TargetApi(21)
                 @Override
                 public void onTransitionStart(Transition transition) {
-                    AnimatorSet animBtnModifyNameOut = (AnimatorSet)AnimatorInflater.loadAnimator(instance, R.animator.anim_pop_out);
+                    AnimatorSet animBtnModifyNameOut = (AnimatorSet) AnimatorInflater.loadAnimator(instance, R.animator.anim_pop_out);
                     animBtnModifyNameOut.setTarget(btnModifyName);
 
-                    AnimatorSet switchBackgroundAnim = (AnimatorSet)AnimatorInflater.loadAnimator(instance, R.animator.anim_pop_out);
+                    AnimatorSet switchBackgroundAnim = (AnimatorSet) AnimatorInflater.loadAnimator(instance, R.animator.anim_pop_out);
                     switchBackgroundAnim.setTarget(btnSwitchBackground);
 
                     AnimatorSet buttonsAnim = new AnimatorSet();
@@ -213,6 +237,20 @@ public class LoginActivity extends Activity {
                     });
 
                     buttonsAnim.start();
+
+                    ValueAnimator animColor = ValueAnimator.ofArgb(getWindow().getStatusBarColor(), instance.getResources().getColor(R.color.app_status));
+                    animColor.setInterpolator(new AccelerateDecelerateInterpolator());
+                    animColor.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            Object value = animation.getAnimatedValue();
+                            if (value != null) {
+                                int c = (int) value;
+                                getWindow().setStatusBarColor(c);
+                            }
+                        }
+                    });
+                    animColor.start();
                 }
 
                 @Override
@@ -236,8 +274,10 @@ public class LoginActivity extends Activity {
                 }
             });
 
-            getWindow().setSharedElementEnterTransition(setEnter);
             getWindow().setSharedElementExitTransition(setExit);
+            getWindow().setSharedElementEnterTransition(setEnter);
+
+            getWindow().setSharedElementReturnTransition(setExit);
         }
 
         super.onCreate(savedInstanceState);
@@ -263,40 +303,19 @@ public class LoginActivity extends Activity {
                 ((TextView) (findViewById(R.id.edit_header_name))).setText(CurrentInterest.getName());
                 imageView.setImageBitmap(CurrentInterest.getCustomImage());
                 backgroundLayout.setBackgroundColor(CurrentInterest.getColor());
+                Colors = CurrentInterest.getColors();
             }
         }
 
-        GeneratePalette();
-    }
+        CategoryInfoView categoryInfoView = (CategoryInfoView)findViewById(R.id.edit_categories_view);
+        categoryInfoView.updateInfos(CurrentInterest);
 
-    @TargetApi(21)
-    private void GeneratePalette() {
-        Bitmap bmp = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        if(bmp == null) {
-            return;
-        }
-
-        Palette.generateAsync(bmp,
-                new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        generatedPalette = palette;
-
-                        Colors.Vibrant = generatedPalette.getVibrantSwatch();
-                        Colors.DarkVibrant = generatedPalette.getDarkVibrantSwatch();
-                        Colors.LightVibrant = generatedPalette.getLightVibrantSwatch();
-                        Colors.Muted = generatedPalette.getMutedSwatch();
-                        Colors.DarkMuted = generatedPalette.getDarkMutedSwatch();
-                        Colors.LightMuted = generatedPalette.getLightMutedSwatch();
-
-                        UpdateColorsWithPalette();
-                    }
-                });
+        UpdateColorsWithPalette();
     }
 
     @TargetApi(21)
     private void UpdateColorsWithPalette() {
-        if(generatedPalette == null)
+        if(Colors == null)
             return;
 
         int app_primary_color = getResources().getColor(R.color.app_primary);
@@ -307,7 +326,7 @@ public class LoginActivity extends Activity {
         backgroundLayout.setBackgroundColor(color);
 
         Window w = getWindow();
-        w.setStatusBarColor(color);
+        //w.setStatusBarColor(color);
         w.setNavigationBarColor(color);
 
         TextView t = (TextView) findViewById(R.id.edit_header_name);
@@ -325,8 +344,44 @@ public class LoginActivity extends Activity {
     @Override
     public void onBackPressed() {
         btnModifyName.setVisibility(View.GONE);
+        btnSwitchBackground.setVisibility(View.GONE);
         super.onBackPressed();
         //animShrinkHeader();
+    }
+
+    private boolean savedNotificationActive = false;
+    // Show saved notification
+    public void showSavedNotification() {
+        if(!savedNotificationActive) {
+            Animator notif = AnimatorInflater.loadAnimator(this, R.animator.anim_saved_prompt_in);
+            final View target = findViewById(R.id.edition_saved_prompt);
+            notif.setTarget(target);
+            notif.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    savedNotificationActive = true;
+                    target.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    savedNotificationActive = false;
+                    target.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+
+            notif.start();
+        }
     }
 
     static boolean shrinked = false;
@@ -338,13 +393,4 @@ public class LoginActivity extends Activity {
     private void updateHeader() {
 
     }
-}
-
-class PaletteColors {
-    public Palette.Swatch Vibrant;
-    public Palette.Swatch DarkVibrant;
-    public Palette.Swatch LightVibrant;
-    public Palette.Swatch Muted;
-    public Palette.Swatch DarkMuted;
-    public Palette.Swatch LightMuted;
 }

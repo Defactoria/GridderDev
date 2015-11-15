@@ -44,7 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="5dp"
-                    android:text="Use Color"
+                    android:padding="10dp"
+                    android:text="@string/edition_change_to_color"
                     android:background="@drawable/primary_round"/>
 
             </FrameLayout>
@@ -81,19 +82,40 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="10dp"
-                    android:text="Modify"
+                    android:text="@string/edition_modify"
                     style="?android:attr/borderlessButtonStyle"
                     android:visibility="visible"
                     />
 
             </FrameLayout>
 
-            <include layout="@layout/edition_categories_header" />
+            <leclerc.gridder.activities.edition.CategoryInfoView
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:id="@+id/edit_categories_view" />
             <!--<include layout="@layout/edition_background_color"  />-->
 
         </LinearLayout>
 
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/edition_saved_prompt"
+        android:layout_width="fill_parent"
+        android:layout_height="42dp"
+        android:background="@android:color/holo_green_dark"
+        android:visibility="gone"
+        android:elevation="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saved_prompt"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
 
     <!--<RelativeLayout
         android:id="@+id/edit_header_layout"

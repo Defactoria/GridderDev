@@ -15,10 +15,11 @@ import android.transition.AutoTransition;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.view.View;
+import android.view.Window;
 
 import leclerc.gridder.R;
+import leclerc.gridder.activities.edition.EditionActivity;
 import leclerc.gridder.activities.grids.GridsActivity;
-import leclerc.gridder.activities.login.LoginActivity;
 import leclerc.gridder.cards.CardFront;
 import leclerc.gridder.cards.InterestCard;
 import leclerc.gridder.data.Interest;
@@ -51,18 +52,22 @@ public class CardFrontState extends CardStateContext {
             else {
                 //getParent().setState(new CardBackState(getParent()));
                 CardFront front = getParent().Front;
-                Context context = getParent().getContext();
 
-                Intent intent = new Intent(context, LoginActivity.class);
-                intent.putExtra(LoginActivity.ID, getParent().getInterest().getId());
+                GridsActivity gridsActivity = (GridsActivity)getParent().getContext();
+                View v = gridsActivity.findViewById(android.R.id.statusBarBackground);
+                gridsActivity.setStatusBarView(v);
+
+                Intent intent = new Intent(gridsActivity, EditionActivity.class);
+                intent.putExtra(EditionActivity.ID, getParent().getInterest().getId());
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        (Activity) context,
-                        new Pair<View, String>(front.getFrameView(), context.getString(R.string.transition_name_interest_frame)),
-                        new Pair<View, String>(front.getImageView(), context.getString(R.string.transition_name_interest_image)),
-                        new Pair<View, String>(front.getHashtagView(), context.getString(R.string.transition_name_interest_name))
+                        gridsActivity,
+                        new Pair<View, String>(front.getFrameView(), gridsActivity.getString(R.string.transition_name_interest_frame)),
+                        new Pair<View, String>(front.getImageView(), gridsActivity.getString(R.string.transition_name_interest_image)),
+                        new Pair<View, String>(front.getHashtagView(), gridsActivity.getString(R.string.transition_name_interest_name)),
+                        new Pair<View, String>((gridsActivity).getStatusBarView(), Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME)
                 );
-                ActivityCompat.startActivity((Activity) context, intent, options.toBundle());
+                ActivityCompat.startActivity(gridsActivity, intent, options.toBundle());
             }
         }
     }

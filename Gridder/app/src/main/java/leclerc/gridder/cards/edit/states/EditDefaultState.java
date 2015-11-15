@@ -42,6 +42,7 @@ public class EditDefaultState extends EditStateContext {
 
         long id = Interest.NEEDS_UPDATE_ID;
 
+        // If not a new Interest in DB, get current Id
         if(getParent().getInterest().getState() != Interest.InterestState.Add)
             id = getParent().getInterest().getId();
 
@@ -53,6 +54,9 @@ public class EditDefaultState extends EditStateContext {
         newInterest.setState(getParent().getTmpInterestState());
         // If the user validates with not using the custom image, update custom as null in DB.
         newInterest.setCustomImageSrc(newInterest.getState() == Interest.InterestState.Custom ? getParent().getInterest().getCustomImageSrc() : null);
+
+        // Update the visual elements
+        newInterest.updateVisual();
 
         User.getInstance().getCurrentGrid().replaceElement(getParent().getInterest(), newInterest);
 

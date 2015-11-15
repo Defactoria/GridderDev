@@ -3,4 +3,5 @@
     <color name="text_color">#FF81D4FA</color>
     <color name="text_color_dark">#ff5889a7</color>
     <color name="app_primary">#FF0091EA</color>
+    <color name="app_status">#ff0277bd</color>
 </resources>

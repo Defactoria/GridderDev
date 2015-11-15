@@ -32,7 +32,6 @@ import java.util.Random;
 
 import leclerc.gridder.activities.grids.Grid;
 import leclerc.gridder.activities.grids.GridAdapter;
-import leclerc.gridder.activities.login.LoginActivity;
 import leclerc.gridder.cards.edit.states.EditClosedState;
 import leclerc.gridder.cards.edit.states.EditOptionsState;
 import leclerc.gridder.cards.edit.states.EditPictureState;

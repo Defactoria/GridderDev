@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories_name_array">
+        <item>Tv Series</item>
+        <item>Movie</item>
+        <item>Book</item>
+        <item>Book Series</item>
+        <item>Tv Show</item>
+        <item>Tv Reality Show</item>
+        <item>Music</item>
+        <item>Video Game</item>
+        <item>Board Game</item>
+        <item>Computer</item>
+    </string-array>
+</resources>

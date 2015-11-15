@@ -88,6 +88,8 @@ public class CardFront extends RelativeLayout implements UpdateCard {
     public void init(Interest interest) {
         mInterestData = interest;
 
+        mInterestData.updateVisual();
+
         update();
     }
 
@@ -124,6 +126,8 @@ public class CardFront extends RelativeLayout implements UpdateCard {
         if(btnToBack == null) {
             btnToBack = (Button)view.findViewById(R.id.card_front_button);
         }
+
+        updateFrameColor();
 
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
@@ -186,9 +190,6 @@ public class CardFront extends RelativeLayout implements UpdateCard {
                         imageView.setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
                         txtName.setTextColor(TEXT_COLOR_DEFAULT);
                         //txtName.setShadowLayer(3, 3, 3, Color.BLACK);
-
-                        updateFrameColor();
-
                         break;
                 }
             }
@@ -202,6 +203,7 @@ public class CardFront extends RelativeLayout implements UpdateCard {
         imageView.setImageBitmap(getInterest().getCustomImage());
         // LOADED
 
+        getInterest().updateVisual();
         updateFrameColor();
 
         /*if(loadingParent != null)
@@ -210,10 +212,10 @@ public class CardFront extends RelativeLayout implements UpdateCard {
 
     @TargetApi(21)
     public void updateFrameColor() {
-        if(frmNameWithImage != null) {
+        if(frmNameWithImage != null && getInterest() != null) {
             frmNameWithImage.setBackgroundColor(getInterest().getFrameBaseColor());
         }
-        if(txtName != null) {
+        if(txtName != null && getInterest() != null) {
             txtName.setTextColor(getInterest().getBodyTextColor());
         }
     }

@@ -1,5 +1,6 @@
 package leclerc.gridder.activities.grids;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -469,5 +470,15 @@ public class GridsActivity extends Activity {
             return getPreview(g.getPreviewView());
         else
             return getPreview(findViewById(R.id.grids_gridInterests));
+    }
+
+    private View statusBarView;
+    public View getStatusBarView() {
+        return statusBarView;
+    }
+
+    @TargetApi(21)
+    public void setStatusBarView(View v) {
+        statusBarView = v;
     }
 }

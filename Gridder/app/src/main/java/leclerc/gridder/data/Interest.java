@@ -122,7 +122,7 @@ public class Interest {
     private int mBodyTextColor = Color.WHITE;
     private int mTitleTextColor = Color.WHITE;
 
-    private static final int FRAME_ALPHA = 200;
+    private static final int FRAME_ALPHA = 180;
 
     // Colors for Edition Activity
     public int getFrameBaseColor() { return mFrameBaseColor; }

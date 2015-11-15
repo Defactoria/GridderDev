@@ -111,11 +111,12 @@ public class EditionActivity extends Activity {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             TransitionSet setEnter = new TransitionSet();
-            setEnter.addTransition(new AutoTransition());
-            //setEnter.addTransition(new TestingTransition());
+            //setEnter.addTransition(new AutoTransition());
+            setEnter.addTransition(new ChangeBounds()).addTransition(new TestingTransition(TestingTransition.MODE_ENTER));
             //set.addTransition(new Explode());
             setEnter.excludeTarget(android.R.id.statusBarBackground, true);
             setEnter.setOrdering(TransitionSet.ORDERING_TOGETHER);
+            //setEnter.setDuration(10000);
 
             // Entering previous activity
             setEnter.addListener(new Transition.TransitionListener() {
@@ -196,9 +197,10 @@ public class EditionActivity extends Activity {
 
             TransitionSet setExit = new TransitionSet();
             //setExit.addTransition(new ChangeBounds());
-            setExit.addTransition(new AutoTransition());
-            //setExit.addTransition(new TestingTransition());
+            //setExit.addTransition(new AutoTransition());
+            setExit.addTransition(new ChangeBounds()).addTransition(new TestingTransition(TestingTransition.MODE_EXIT));
             setExit.setOrdering(TransitionSet.ORDERING_TOGETHER);
+            //setExit.setDuration(10000);
 
             setExit.addListener(new Transition.TransitionListener() {
                 @TargetApi(21)
